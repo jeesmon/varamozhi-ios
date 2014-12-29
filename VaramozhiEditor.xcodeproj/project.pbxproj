@@ -428,9 +428,11 @@
 				TargetAttributes = {
 					0355E0821A4D5EC60054198B = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 58V2A74LJ7;
 					};
 					0388DD4C1A49846D00E413A5 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 58V2A74LJ7;
 					};
 					0388DD631A49846D00E413A5 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -696,12 +698,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Carini (97HKSGE29L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -709,12 +712,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Carini (97HKSGE29L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
