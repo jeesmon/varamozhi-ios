@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0355E07C1A4D3AC20054198B /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0355E07B1A4D3AC20054198B /* settings.png */; };
+		03556F1F1A529CD30070187D /* installation.html in Resources */ = {isa = PBXBuildFile; fileRef = 03556F1E1A529CD30070187D /* installation.html */; };
 		0355E07E1A4D52050054198B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0355E07D1A4D52050054198B /* Settings.bundle */; };
 		0355E0881A4D5EC70054198B /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355E0871A4D5EC70054198B /* KeyboardViewController.swift */; };
 		0355E08B1A4D5EC70054198B /* varamozhi.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0355E0831A4D5EC60054198B /* varamozhi.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -87,7 +87,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0355E07B1A4D3AC20054198B /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		03556F1E1A529CD30070187D /* installation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = installation.html; sourceTree = "<group>"; };
 		0355E07D1A4D52050054198B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0355E0831A4D5EC60054198B /* varamozhi.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = varamozhi.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0355E0861A4D5EC70054198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -327,6 +327,7 @@
 		0388DD501A49846D00E413A5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				03556F1E1A529CD30070187D /* installation.html */,
 				0355E0E51A4DC27B0054198B /* info.html */,
 				0388DD511A49846D00E413A5 /* Info.plist */,
 			);
@@ -354,7 +355,6 @@
 			isa = PBXGroup;
 			children = (
 				0355E0E31A4D6B1C0054198B /* settingsadd.png */,
-				0355E07B1A4D3AC20054198B /* settings.png */,
 				0388DD751A49A0C300E413A5 /* lipi.png */,
 			);
 			path = images;
@@ -436,6 +436,7 @@
 					};
 					0388DD631A49846D00E413A5 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = F2PHBVP83C;
 						TestTargetID = 0388DD4C1A49846D00E413A5;
 					};
 				};
@@ -483,7 +484,7 @@
 			files = (
 				0355E0E61A4DC27B0054198B /* info.html in Resources */,
 				0388DD5A1A49846D00E413A5 /* Main.storyboard in Resources */,
-				0355E07C1A4D3AC20054198B /* settings.png in Resources */,
+				03556F1F1A529CD30070187D /* installation.html in Resources */,
 				0355E0E41A4D6B1C0054198B /* settingsadd.png in Resources */,
 				0388DD761A49A0C300E413A5 /* lipi.png in Resources */,
 				0388DD5F1A49846D00E413A5 /* LaunchScreen.xib in Resources */,
@@ -597,6 +598,7 @@
 				INFOPLIST_FILE = varamozhi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi/varamozhi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -607,9 +609,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Carini (97HKSGE29L)";
 				INFOPLIST_FILE = varamozhi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi/varamozhi-Bridging-Header.h";
 			};
@@ -704,7 +708,7 @@
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
 			};
 			name = Debug;
 		};
@@ -713,12 +717,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Carini (97HKSGE29L)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e4106442-1116-4295-a81e-4bfcd3eccb8c";
 			};
 			name = Release;
 		};

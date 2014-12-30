@@ -66,7 +66,14 @@ class MasterViewController: UITableViewController {
                 let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
                 controller.modeDisplay = indexPath.row
                 
-                if indexPath.row == 1 {
+                if indexPath.row == 0 {
+                    
+                    let object = NSBundle.mainBundle().pathForResource("installation", ofType: "html")
+                    
+                    
+                    
+                    controller.filePath = object
+                }else if indexPath.row == 1 {
                     
                     let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
                     
@@ -82,7 +89,7 @@ class MasterViewController: UITableViewController {
                     controller.filePath = object
                     
                 }
-                controller.configureView()
+                //controller.configureView()
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
