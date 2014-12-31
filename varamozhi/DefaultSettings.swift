@@ -65,7 +65,7 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
         get {
             return [
                 kKeyboardClicks: "Please note that keyboard clicks will work only if “Allow Full Access” is enabled in the keyboard settings. Unfortunately, this is a limitation of the operating system.",
-                kDisablePopupKeys: "It will remove the top banner of keyboard, also the letter will not popup when you tap keys. Please note that we should switch the keyboard to make it work."
+                kDisablePopupKeys: "This will remove top banner of the keyboard. You need to switch keyboard by tapping globe icon to see the change."
             ]
         }
     }
