@@ -122,7 +122,7 @@ class LayoutConstants: NSObject {
     
     //class var lastRowKeyGapPortrait: CGFloat { get { return 6 }}
     //class var lastRowKeyGapLandscapeArray: [CGFloat] { get { return [8, 7, 5] }}
-    class var lastRowKeyGapLandscapeWidthThreshholds: [CGFloat] { get { return [500, 700] }}
+    class var lastRowKeyGapLandscapeWidthThreshholds: [CGFloat] { get { return [500, 700, 500] }}//+20141231
     
     // TODO: approxmiate, but close enough
     class var lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.24 }}
@@ -852,7 +852,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
         }
         
         assert(keysBeforeSpace <= 3, "invalid number of keys before space (only max 3 currently supported)")
-        assert(keysAfterSpace == 1, "invalid number of keys after space (only default 1 currently supported)")
+        //+20141231assert(keysAfterSpace == 1, "invalid number of keys after space (only default 1 currently supported)")
         
         let hasButtonInMicButtonPosition = (keysBeforeSpace == 3)
         
