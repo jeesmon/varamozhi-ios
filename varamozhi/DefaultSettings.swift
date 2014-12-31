@@ -32,10 +32,22 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
     // TODO: these probably don't belong here, and also need to be localized
     var settingsList: [(String, [String])] {
         get {
-            return [
-                ("General Settings", [kPeriodShortcut, kKeyboardClicks])
-                /*("Extra Settings", [kSmallLowercase])*/
-            ]
+            let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+            //+20141231
+            if isPad {
+                
+                return [
+                    ("General Settings", [kPeriodShortcut, kKeyboardClicks])
+                    
+                    
+                ]
+            }else {
+                return [
+                    ("General Settings", [kPeriodShortcut, kKeyboardClicks]),
+                    ("Extra Settings", [kDisablePopupKeys])
+                ]
+            }
+            
         }
     }
     var settingsNames: [String:String] {
@@ -44,7 +56,7 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
                 //kAutoCapitalization: "Auto-Capitalization",
                 kPeriodShortcut:  "“.” Shortcut",
                 kKeyboardClicks: "Keyboard Clicks",
-                //kSmallLowercase: "Allow Lowercase Key Caps"
+                kDisablePopupKeys: "Remove Top Banner"//+20141231
                 
             ]
         }
@@ -53,7 +65,7 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
         get {
             return [
                 kKeyboardClicks: "Please note that keyboard clicks will work only if “Allow Full Access” is enabled in the keyboard settings. Unfortunately, this is a limitation of the operating system.",
-                //kSmallLowercase: "Changes your your key caps to lowercase when Shift is off, making it easier to tell what mode you are in."
+                kDisablePopupKeys: "It will remove the top banner of keyboard, also the letter will not popup when you tap keys. Please note that we should switch the keyboard to make it work."
             ]
         }
     }

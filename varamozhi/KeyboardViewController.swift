@@ -12,13 +12,24 @@ import AudioToolbox
 let metrics: [String:Float] = [
     "topBanner": 30
 ]
-func metric(name: String) -> CGFloat { return CGFloat(metrics[name]!) }
+func metric(name: String) -> CGFloat {
+    
+    //+20141231
+    if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+        return 0
+    }else{
+        return CGFloat(metrics[name]!)
+    }
+    
+    
+
+}
 
 // TODO: move this somewhere else and localize
 //let kAutoCapitalization = "kAutoCapitalization"
 let kPeriodShortcut = "kPeriodShortcut"
 let kKeyboardClicks = "kKeyboardClicks"
-//let kSmallLowercase = "kSmallLowercase"
+let kDisablePopupKeys = "kDisablePopupKeys"
 //let kKeyPadMalayalam = "kKeyPadMalayalam"
 
 class KeyboardViewController: UIInputViewController {
@@ -117,8 +128,8 @@ class KeyboardViewController: UIInputViewController {
             //kAutoCapitalization: false, //+20141218
             //kKeyPadMalayalam: false,
             kPeriodShortcut: true,
-            kKeyboardClicks: true
-            //kSmallLowercase: false
+            kKeyboardClicks: true,
+            kDisablePopupKeys: false
         ])
         
         self.keyboard = defaultKeyboard()
@@ -300,6 +311,9 @@ class KeyboardViewController: UIInputViewController {
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
         let topBannerHeight = (withTopBanner ? metric("topBanner") : 0)
         KeyboardViewController.workaroundClassVariable = orientation.isLandscape
+        
+        
+        //+20141231
         
         if(isPad){
         
