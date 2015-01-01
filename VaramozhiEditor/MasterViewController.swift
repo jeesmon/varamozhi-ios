@@ -93,6 +93,16 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
+                let orientation = UIApplication.sharedApplication().statusBarOrientation
+                
+                if orientation.isPortrait {
+                    
+                    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                    appDelegate.hideMaster()
+                    // Portrait
+                } else {
+                    // Landscape
+                }
             }
         }
     }
