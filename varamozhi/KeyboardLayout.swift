@@ -227,10 +227,18 @@ class GlobalColors: NSObject {
     class var lightModeRegularKey: UIColor { get { return UIColor.whiteColor() }}
     class var darkModeRegularKey: UIColor { get { return UIColor.grayColor().colorWithAlphaComponent(CGFloat(0.25)) }}
     class var darkModeSolidColorRegularKey: UIColor { get { return UIColor(red: CGFloat(83)/CGFloat(255), green: CGFloat(83)/CGFloat(255), blue: CGFloat(83)/CGFloat(255), alpha: 1) }}
-    class var lightModeSpecialKey: UIColor { get { return UIColor.blackColor().colorWithAlphaComponent(CGFloat(0.25)) }}
+   //177
+    class var lightModeSolidColorSpecialKey: UIColor { get { return UIColor(red: CGFloat(189)/CGFloat(255), green: CGFloat(222)/CGFloat(255), blue: CGFloat(189)/CGFloat(255), alpha: 1) }}
     
-    class var lightModeSolidColorSpecialKey: UIColor { get { return UIColor(red: CGFloat(177)/CGFloat(255), green: CGFloat(177)/CGFloat(255), blue: CGFloat(177)/CGFloat(255), alpha: 1) }}
-    class var lightModeSpecialKeyiPad: UIColor { get { return UIColor(red: CGFloat(180)/CGFloat(255), green: CGFloat(190)/CGFloat(255), blue: CGFloat(200)/CGFloat(255), alpha: 1) }}
+    
+    //+20150101 +colorchagne for light and dark
+    class var lightModeSpecialKey: UIColor { get { return UIColor(red: CGFloat(114)/CGFloat(255), green: CGFloat(148)/CGFloat(255), blue: CGFloat(114)/CGFloat(255), alpha: 1) }} // -- for iPhone special keys
+    class var lightModeSpecialKeyiPad: UIColor { get { return UIColor(red: CGFloat(114)/CGFloat(255), green: CGFloat(148)/CGFloat(255), blue: CGFloat(114)/CGFloat(255), alpha: 1) }} // -- for iPad special keys
+    
+    //class var lightModeSpecialKey: UIColor { get { return UIColor.blackColor().colorWithAlphaComponent(CGFloat(0.25)) }}
+    //class var lightModeSpecialKeyiPad: UIColor { get { return UIColor(red: CGFloat(180)/CGFloat(255), green: CGFloat(190)/CGFloat(255), blue: CGFloat(200)/CGFloat(255), alpha: 1) }}
+
+    
     
     
     class var darkModeSpecialKey: UIColor { get { return UIColor.blackColor().colorWithAlphaComponent(CGFloat(0.25)) }}
@@ -276,12 +284,17 @@ class GlobalColors: NSObject {
                return self.lightModeSolidColorSpecialKey
             }
             else {
+                
                 let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
                 if isPad {
+                    
                     return self.lightModeSpecialKeyiPad
-                } else {
+                }else{
                     return self.lightModeSpecialKey
                 }
+                
+                
+                
             }
         }
     }

@@ -374,7 +374,9 @@ class KeyboardViewController: UIInputViewController {
                     }
                     
                     if key.isCharacter {
-                        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+                        //+20150101
+                        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad && !NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+
                             keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
                             keyView.addTarget(keyView, action: Selector("hidePopup"), forControlEvents: .TouchDragExit)
                             keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
