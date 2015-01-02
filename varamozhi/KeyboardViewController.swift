@@ -51,9 +51,9 @@ class KeyboardViewController: UIInputViewController {
     
     var currentMode: Int {
         didSet {
-            if oldValue != currentMode {
+            //+20150102if oldValue != currentMode {
                 setMode(currentMode)
-            }
+            //}
         }
     }
     
