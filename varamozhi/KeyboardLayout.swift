@@ -122,7 +122,23 @@ class LayoutConstants: NSObject {
     
     //class var lastRowKeyGapPortrait: CGFloat { get { return 6 }}
     //class var lastRowKeyGapLandscapeArray: [CGFloat] { get { return [8, 7, 5] }}
-    class var lastRowKeyGapLandscapeWidthThreshholds: [CGFloat] { get { return [500, 700, 500] }}//+20141231
+    class var lastRowKeyGapLandscapeWidthThreshholds: [CGFloat] {
+        
+        
+        get {
+            //+20150102
+            let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+            if isPad {
+                return [500, 700, 500]
+            }else {
+                return [500, 700]
+            }
+            
+        
+        }
+    
+    
+    }//+20141231
     
     // TODO: approxmiate, but close enough
     class var lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.24 }}
@@ -209,7 +225,7 @@ class LayoutConstants: NSObject {
     }
     
     class func findThreshhold(elements: [CGFloat], threshholds: [CGFloat], measurement: CGFloat) -> CGFloat {
-        assert(elements.count == threshholds.count + 1, "elements and threshholds do not match")
+        //+20150102assert(elements.count == threshholds.count + 1, "elements and threshholds do not match")
         return elements[self.findThreshholdIndex(threshholds, measurement: measurement)]
     }
     class func findThreshholdIndex(threshholds: [CGFloat], measurement: CGFloat) -> Int {
@@ -393,7 +409,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
         Key.KeyType.Period:
             key.color = self.self.globalColors.regularKey(darkMode, solidColorMode: solidColorMode)
             key.textColor = (darkMode ? self.globalColors.darkModeTextColor : self.globalColors.lightModeTextColor)
-            if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
+            if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad || NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) { //+20150102
                 key.downColor = self.globalColors.specialKey(darkMode, solidColorMode: solidColorMode)
             }
         case
