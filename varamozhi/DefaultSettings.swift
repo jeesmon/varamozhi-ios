@@ -37,8 +37,7 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
             if isPad {
                 
                 return [
-                    ("General Settings", [kPeriodShortcut, kKeyboardClicks])
-                    
+                    ("General Settings", [kPeriodShortcut, kKeyboardClicks])                    
                     
                 ]
             }else {

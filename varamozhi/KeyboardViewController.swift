@@ -461,9 +461,7 @@ class KeyboardViewController: UIInputViewController {
     }
     override func textWillChange(textInput: UITextInput) {
         
-        /*+rollvar str :String = textInput.textInRange(textInput.selectedTextRange!);
-        NSLog("%@", str);*/
-        // The app is about to change the document's contents. Perform any preparation here.
+        
     }
     func contextChanged() {
         self.setCapsIfNeeded()

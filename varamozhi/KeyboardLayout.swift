@@ -268,6 +268,12 @@ class GlobalColors: NSObject {
     class var lightModeBorderColor: UIColor { get { return UIColor(hue: (214/360.0), saturation: 0.04, brightness: 0.65, alpha: 1.0) }}
     class var darkModeBorderColor: UIColor { get { return UIColor.clearColor() }}
     
+    //+20150105
+    class var darkModeSolidColorPopup: UIColor { get { return GlobalColors.darkModeSolidColorRegularKey }}
+    class var lightModePopup: UIColor { get { return GlobalColors.lightModeRegularKey }}
+    class var darkModePopup: UIColor { get { return UIColor.grayColor() }}
+
+    
     class func regularKey(darkMode: Bool, solidColorMode: Bool) -> UIColor {
         if darkMode {
             if solidColorMode {
@@ -281,7 +287,20 @@ class GlobalColors: NSObject {
             return self.lightModeRegularKey
         }
     }
-    
+    //+20150105
+    class func popup(darkMode: Bool, solidColorMode: Bool) -> UIColor {
+        if darkMode {
+            if solidColorMode {
+                return self.darkModeSolidColorPopup
+            }
+            else {
+                return self.darkModePopup
+            }
+        }
+        else {
+            return self.lightModePopup
+        }
+    }
     class func specialKey(darkMode: Bool, solidColorMode: Bool) -> UIColor {
         
         
@@ -448,6 +467,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
             break
         }
         
+        key.popupColor = self.globalColors.popup(darkMode, solidColorMode: solidColorMode)//+20150105
         key.underColor = (self.darkMode ? self.globalColors.darkModeUnderColor : self.globalColors.lightModeUnderColor)
         key.borderColor = (self.darkMode ? self.globalColors.darkModeBorderColor : self.globalColors.lightModeBorderColor)
         

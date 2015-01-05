@@ -129,7 +129,7 @@ class KeyboardKey: UIControl {
         self.color = UIColor.whiteColor()
         self.underColor = UIColor.grayColor()
         self.borderColor = UIColor.blackColor()
-        self.popupColor = UIColor.whiteColor()
+        self.popupColor = UIColor.redColor()
         self.drawUnder = true
         self.drawOver = true
         self.drawBorder = false
