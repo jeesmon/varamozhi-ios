@@ -12,13 +12,24 @@ import AudioToolbox
 let metrics: [String:Float] = [
     "topBanner": 30
 ]
+let metricspad: [String:Float] = [
+    "topBanner": 40
+]
 func metric(name: String) -> CGFloat {
     
     //+20141231
     if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
         return 0
     }else{
+        //+20150113
         return CGFloat(metrics[name]!)
+        /*let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        if isPad {
+            return CGFloat(metricspad[name]!)
+        }else{
+            return CGFloat(metrics[name]!)
+        }*/
+        
     }
     
     
@@ -42,12 +53,13 @@ class KeyboardViewController: UIInputViewController {
     var layout: KeyboardLayout?
     var heightConstraint: NSLayoutConstraint?
     
-    //+20141218var bannerView: ExtraView?
+    var bannerView: ExtraView? //+20150114
     var settingsView: ExtraView?
     
     //+20141209
     var varamozhi: MyBridge = MyBridge()
     var typedKeys:String = "";
+    var lastchar: String = ""
     
     var currentMode: Int {
         didSet {
@@ -314,7 +326,7 @@ class KeyboardViewController: UIInputViewController {
         
         
         //+20141231
-        
+        ///+20150113
         if(isPad){
         
             return CGFloat(orientation.isPortrait ? canonicalPortraitHeight  : canonicalLandscapeHeight )//+ topBannerHeight +20141218
@@ -603,6 +615,7 @@ class KeyboardViewController: UIInputViewController {
     func backspaceDown(sender: KeyboardKey) {
         self.cancelBackspaceTimers()
         
+        lastchar = "" //+20150129
         //+20141229self.playKeySound()
         
         if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
@@ -701,6 +714,8 @@ class KeyboardViewController: UIInputViewController {
     func shiftDown(sender: KeyboardKey) {
         //+20141229self.playKeySound()
         
+        lastchar = "sd" //+20150129
+        
         if self.shiftWasMultitapped {
             self.shiftWasMultitapped = false
             return
@@ -719,16 +734,21 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func shiftDoubleTapped(sender: KeyboardKey) {
-        self.shiftWasMultitapped = true
         
-        switch self.shiftState {
-        case .Disabled:
-            self.shiftState = .Locked
-        case .Enabled:
-            self.shiftState = .Locked
-        case .Locked:
-            self.shiftState = .Disabled
+        if lastchar == "sd" {//+20150129
+            
+            self.shiftWasMultitapped = true
+            
+            switch self.shiftState {
+            case .Disabled:
+                self.shiftState = .Locked
+            case .Enabled:
+                self.shiftState = .Locked
+            case .Locked:
+                self.shiftState = .Disabled
+            }
         }
+        
     }
     
     // TODO: this should be uppercase, not lowercase
@@ -811,6 +831,7 @@ class KeyboardViewController: UIInputViewController {
                 self.view.addConstraint(heightConstraint)
                 self.view.addConstraint(centerXConstraint)
                 self.view.addConstraint(centerYConstraint)
+                
             }
         }
         
@@ -969,7 +990,8 @@ class KeyboardViewController: UIInputViewController {
                     
                 }
                 
-                let f2:NSString = varamozhi.getConvertedText(typedKeys)
+                let f2:String = varamozhi.getConvertedText(typedKeys) as String
+                
                 
                 proxy.insertText(f2)
                 
@@ -978,8 +1000,10 @@ class KeyboardViewController: UIInputViewController {
                 typedKeys = "";
                 
                 proxy.insertText(keyOutput)
+            
             }
             
+            lastchar = keyOutput //+20150129
         }
     }
     

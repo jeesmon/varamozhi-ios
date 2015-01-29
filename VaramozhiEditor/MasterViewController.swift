@@ -11,10 +11,9 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = ["Setup & Usage", "User Guide", "About"]//NSMutableArray(), "Preview"
+    var objects = ["Setup & Usage", "Transliteration?", "User Guide", "About"]//NSMutableArray(), "Preview"
     
-
-    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
@@ -58,38 +57,69 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        
+        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        
+        //if isPad {
             
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            println("segue.identifier = \(segue.identifier)")
+            
+        
+            if segue.identifier == "showDetail" {
+               
+                if let indexPath = self.tableView.indexPathForSelectedRow() {
+                    
+                    
+                    let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                    controller.modeDisplay = indexPath.row
+                    
+                    if indexPath.row == 0 {
+                        
+                        let object = NSBundle.mainBundle().pathForResource("installation", ofType: "html")
+                        
+                        
+                        
+                        controller.filePath = object
+                    }else if indexPath.row == 2 {
+                        
+                        let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
+                        
+                        
+                        
+                        controller.filePath = object
+                    }
+                    else if indexPath.row == 3 {
+                        let object = NSBundle.mainBundle().pathForResource("info", ofType: "html")
+                        
+                        
+                        
+                        controller.filePath = object
+                        
+                    }
+                    //controller.configureView()
+                    controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    
+                    
+                    
+                    
+                    let orientation = UIApplication.sharedApplication().statusBarOrientation
+                    
+                    if orientation.isPortrait {
+                        
+                        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                        appDelegate.hideMasterOnPortrait()
+                        // Portrait
+                    } else {
+                        // Landscape
+                    }
+                    
+                    
+                
+            }else if segue.identifier == "showPreview" {
                 
                 
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
-                controller.modeDisplay = indexPath.row
-                
-                if indexPath.row == 0 {
-                    
-                    let object = NSBundle.mainBundle().pathForResource("installation", ofType: "html")
-                    
-                    
-                    
-                    controller.filePath = object
-                }else if indexPath.row == 1 {
-                    
-                    let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
-                    
-                    
-                    
-                    controller.filePath = object
-                }
-                else if indexPath.row == 2 {
-                    let object = NSBundle.mainBundle().pathForResource("info", ofType: "html")
-                    
-                    
-                    
-                    controller.filePath = object
-                    
-                }
-                //controller.configureView()
+                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController2
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
@@ -98,13 +128,21 @@ class MasterViewController: UITableViewController {
                 if orientation.isPortrait {
                     
                     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                    appDelegate.hideMaster()
+                    appDelegate.hideMasterOnPortrait()
                     // Portrait
                 } else {
                     // Landscape
                 }
+                
+            }else{
+                
+                
             }
+        
         }
+        //}
+        
+        
     }
 
     // MARK: - Table View
@@ -118,7 +156,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        
+        var ident = "Cell"
+        if indexPath.row == 1 {
+            
+            ident = "CellEditor"
+            
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(ident, forIndexPath: indexPath) as UITableViewCell
 
         let viewBg: UIView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 100))
         viewBg.backgroundColor = UIColor(red: 102/255, green: 172/255, blue: 96/255, alpha: 1)
@@ -131,6 +176,19 @@ class MasterViewController: UITableViewController {
         
         return cell
     }
+    /*override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        if indexPath.row == 1 {
+            self.performSegueWithIdentifier("showPreview", sender: self)
+            
+            
+        } else  {
+            self.performSegueWithIdentifier("showDetail", sender: self)
+        }
+      
+        
+    }*/
     /*
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
