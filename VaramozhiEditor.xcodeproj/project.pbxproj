@@ -923,7 +923,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b66beafa-64a9-4164-a234-8f8c40ec0d4f";
+				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -939,7 +939,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b66beafa-64a9-4164-a234-8f8c40ec0d4f";
+				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 			};
@@ -1071,6 +1071,7 @@
 				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
 			};
 			name = Debug;
@@ -1086,6 +1087,7 @@
 				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
 			};
 			name = Release;

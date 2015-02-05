@@ -11,7 +11,7 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = ["Setup & Usage", "Transliteration?", "User Guide", "About"]//NSMutableArray(), "Preview"
+    var objects = ["Setup & Usage", "Transliteration", "User Guide", "About"]//NSMutableArray(), "Preview"
     
    
     override func awakeFromNib() {

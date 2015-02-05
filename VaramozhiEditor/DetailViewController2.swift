@@ -428,7 +428,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
         self.textViewDisplay.text = f2
         
-        
+        self.title = "Transliteration"
         
     }
     
