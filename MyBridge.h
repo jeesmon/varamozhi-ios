@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Toast+UIView.h"
 
 @interface MyBridge : NSObject{
     
 }
-
+- (void) makeToast:(NSString *)mesage onView:(UIView *)selfee;
 - (NSString *)getConvertedText:(NSString *)inputStr;
 
 @end

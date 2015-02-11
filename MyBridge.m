@@ -19,6 +19,8 @@
 #include "txt2html.h"
 #import "mozhi_unicode_default.h"
 
+
+
 @implementation MyBridge
 
 - (NSString *)getConvertedText:(NSString *)inputStr{
@@ -29,6 +31,11 @@
     
     return outputStr;
     return nil;
+}
+
+- (void) makeToast:(NSString *)mesage onView:(UIView *)selfee{
+    
+    [selfee makeToast:mesage duration:2.0 position:@"top"];
 }
 
 @end

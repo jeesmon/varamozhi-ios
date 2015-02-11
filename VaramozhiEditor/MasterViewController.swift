@@ -61,67 +61,45 @@ class MasterViewController: UITableViewController {
         let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
         
         //if isPad {
-            
-            println("segue.identifier = \(segue.identifier)")
-            
         
-            if segue.identifier == "showDetail" {
-               
-                if let indexPath = self.tableView.indexPathForSelectedRow() {
-                    
-                    
-                    let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
-                    controller.modeDisplay = indexPath.row
-                    
-                    if indexPath.row == 0 {
-                        
-                        let object = NSBundle.mainBundle().pathForResource("installation", ofType: "html")
-                        
-                        
-                        
-                        controller.filePath = object
-                    }else if indexPath.row == 2 {
-                        
-                        let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
-                        
-                        
-                        
-                        controller.filePath = object
-                    }
-                    else if indexPath.row == 3 {
-                        let object = NSBundle.mainBundle().pathForResource("info", ofType: "html")
-                        
-                        
-                        
-                        controller.filePath = object
-                        
-                    }
-                    //controller.configureView()
-                    controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                    controller.navigationItem.leftItemsSupplementBackButton = true
-                    
-                    
-                    
-                    
-                    let orientation = UIApplication.sharedApplication().statusBarOrientation
-                    
-                    if orientation.isPortrait {
-                        
-                        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                        appDelegate.hideMasterOnPortrait()
-                        // Portrait
-                    } else {
-                        // Landscape
-                    }
-                    
-                    
-                
-            }else if segue.identifier == "showPreview" {
+        
+        if segue.identifier == "showDetail" {
+            
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
                 
                 
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController2
+                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                controller.modeDisplay = indexPath.row
+                
+                if indexPath.row == 0 {
+                    
+                    let object = NSBundle.mainBundle().pathForResource("installation", ofType: "html")
+                    
+                    
+                    
+                    controller.filePath = object
+                }else if indexPath.row == 2 {
+                    
+                    let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
+                    
+                    
+                    
+                    controller.filePath = object
+                }
+                else if indexPath.row == 3 {
+                    let object = NSBundle.mainBundle().pathForResource("info", ofType: "html")
+                    
+                    
+                    
+                    controller.filePath = object
+                    
+                }
+                //controller.configureView()
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                
+                
+                
                 
                 let orientation = UIApplication.sharedApplication().statusBarOrientation
                 
@@ -134,15 +112,33 @@ class MasterViewController: UITableViewController {
                     // Landscape
                 }
                 
-            }else{
                 
                 
             }
-        
+        }else if segue.identifier == "showPreview" {
+            
+            
+            let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController2
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            
+            let orientation = UIApplication.sharedApplication().statusBarOrientation
+            
+            if orientation.isPortrait {
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                appDelegate.hideMasterOnPortrait()
+                // Portrait
+            } else {
+                // Landscape
+            }
+            
+        }else{
+            
+            
         }
-        //}
         
-        
+    
     }
 
     // MARK: - Table View

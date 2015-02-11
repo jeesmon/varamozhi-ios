@@ -97,6 +97,13 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
                 
                 
                 var getResult = result as SLComposeViewControllerResult;
+                /*switch(getResult.rawValue)
+                {
+                
+                    case SLComposeViewControllerResult.Done.rawValue:
+                
+                
+                }*/
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -145,8 +152,6 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     }
     func clearscreen(sender: UIBarButtonItem) {
         
-        
-        
         self.textViewDisplay.text = nil
         self.textViewType.text = nil
     }
@@ -156,6 +161,9 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         var pasteboard: UIPasteboard = UIPasteboard.generalPasteboard()
         
         pasteboard.string = self.textViewDisplay.text;
+        if countElements(self.textViewDisplay.text) > 0 {
+            varamozhi.makeToast("Text copied. Paste anywhere.", onView: self.view)
+        }
     }
     func mailme(sender: UIBarButtonItem) {
         
@@ -360,7 +368,6 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
         super.viewWillAppear(animated)
         
-        println("appear")
         
         // Listen for changes to keyboard visibility so that we can adjust the text view accordingly.
         
@@ -373,13 +380,27 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        let delay = 0.05 * Double(NSEC_PER_SEC)
+        var time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(time, dispatch_get_main_queue(), {
+            self.setFocus()
+        })
+    }
+    
+    func setFocus() {
+        self.textViewType.becomeFirstResponder()
+        
+    }
     
     override func viewDidDisappear(animated: Bool) {
         
-
+        
         super.viewDidDisappear(animated)
-        
-        
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         
@@ -388,18 +409,18 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         
         
-
+        
     }
     override func viewWillDisappear(animated: Bool) {
         
         super.viewWillDisappear(animated)
-  
+        
         NSUserDefaults.standardUserDefaults().setValue(self.textViewType.text, forKey: "typedtext")
     }
     
     override func viewDidLoad() {
         
-        println("viewDidLoad")
+        
         //+20150127self.automaticallyAdjustsScrollViewInsets = false;
         
         
@@ -429,6 +450,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         self.textViewDisplay.text = f2
         
         self.title = "Transliteration"
+        
         
     }
     

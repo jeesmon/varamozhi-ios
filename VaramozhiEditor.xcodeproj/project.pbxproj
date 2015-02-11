@@ -93,6 +93,7 @@
 		039CBCB71A78AFB600290593 /* expand.png in Resources */ = {isa = PBXBuildFile; fileRef = 039CBCB51A78AFB600290593 /* expand.png */; };
 		039CBCBA1A7913C100290593 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 039CBCB81A7913C100290593 /* back.png */; };
 		039CBCBB1A7913C100290593 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 039CBCB91A7913C100290593 /* back@2x.png */; };
+		03A55DD11A89E15400D9C951 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A55DD01A89E15400D9C951 /* Toast+UIView.m */; };
 		03BA71E71A722850005B252D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BA71E61A722850005B252D /* Social.framework */; };
 		03BA71E91A722857005B252D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03BA71E81A722857005B252D /* MessageUI.framework */; };
 		03BA72051A72307A005B252D /* copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA71EA1A72307A005B252D /* copy.png */; };
@@ -272,6 +273,8 @@
 		039CBCB51A78AFB600290593 /* expand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = expand.png; sourceTree = "<group>"; };
 		039CBCB81A7913C100290593 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		039CBCB91A7913C100290593 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		03A55DCF1A89E15400D9C951 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		03A55DD01A89E15400D9C951 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		03BA71E61A722850005B252D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		03BA71E81A722857005B252D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		03BA71EA1A72307A005B252D /* copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copy.png; sourceTree = "<group>"; };
@@ -532,6 +535,8 @@
 		0388DD4F1A49846D00E413A5 /* VaramozhiEditor */ = {
 			isa = PBXGroup;
 			children = (
+				03A55DCF1A89E15400D9C951 /* Toast+UIView.h */,
+				03A55DD01A89E15400D9C951 /* Toast+UIView.m */,
 				037C259F1A714E6B001EE8AA /* varamozhi-Bridging-Header.h */,
 				037C259B1A714E11001EE8AA /* MyBridge.h */,
 				037C259C1A714E11001EE8AA /* MyBridge.m */,
@@ -842,6 +847,7 @@
 				037C258C1A714D3E001EE8AA /* mal.tab.c in Sources */,
 				037C25961A714D3E001EE8AA /* txt2html.c in Sources */,
 				037C255C1A714C1F001EE8AA /* KeyboardKeyBackground.swift in Sources */,
+				03A55DD11A89E15400D9C951 /* Toast+UIView.m in Sources */,
 				037C25641A714C1F001EE8AA /* Utilities.swift in Sources */,
 				037C25941A714D3E001EE8AA /* strstruct.c in Sources */,
 				037C255E1A714C1F001EE8AA /* KeyboardModel.swift in Sources */,
