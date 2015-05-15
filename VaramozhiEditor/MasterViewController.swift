@@ -28,7 +28,7 @@ class MasterViewController: UITableViewController {
         
 
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as [NSObject : AnyObject]
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.tableView.rowHeight = 100
         // Do any additional setup after loading the view, typically from a nib.
@@ -68,7 +68,7 @@ class MasterViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 
                 
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.modeDisplay = indexPath.row
                 
                 if indexPath.row == 0 {
@@ -105,7 +105,7 @@ class MasterViewController: UITableViewController {
                 
                 if orientation.isPortrait {
                     
-                    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDelegate.hideMasterOnPortrait()
                     // Portrait
                 } else {
@@ -118,7 +118,7 @@ class MasterViewController: UITableViewController {
         }else if segue.identifier == "showPreview" {
             
             
-            let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController2
+            let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController2
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
             controller.navigationItem.leftItemsSupplementBackButton = true
             
@@ -126,7 +126,7 @@ class MasterViewController: UITableViewController {
             
             if orientation.isPortrait {
                 
-                let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.hideMasterOnPortrait()
                 // Portrait
             } else {
@@ -159,7 +159,7 @@ class MasterViewController: UITableViewController {
             ident = "CellEditor"
             
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(ident, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ident, forIndexPath: indexPath) as! UITableViewCell
 
         let viewBg: UIView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 100))
         viewBg.backgroundColor = UIColor(red: 102/255, green: 172/255, blue: 96/255, alpha: 1)

@@ -485,7 +485,7 @@ PERFORMANCE NOTES
 
 class ShapeView: UIView {
     
-    let shapeLayer: CAShapeLayer?
+    var shapeLayer: CAShapeLayer? //+roll let +20150421
     
     override class func layerClass() -> AnyClass {
         return CAShapeLayer.self
@@ -537,7 +537,7 @@ class ShapeView: UIView {
         }
     }
     
-    override convenience init() {
+    convenience init() {
         self.init(frame: CGRectZero)
     }
     

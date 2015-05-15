@@ -115,7 +115,7 @@ func defaultKeyboard() -> Keyboard {
     var c = "₹"
     if symbol != nil {
      
-        c = symbol!
+        c = symbol! as String
     }
     
     for key in ["-", "/", ":", ";", "(", ")", c, "&", "@"] {

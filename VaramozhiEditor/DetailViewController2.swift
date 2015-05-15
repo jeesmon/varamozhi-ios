@@ -161,7 +161,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         var pasteboard: UIPasteboard = UIPasteboard.generalPasteboard()
         
         pasteboard.string = self.textViewDisplay.text;
-        if countElements(self.textViewDisplay.text) > 0 {
+        if count(self.textViewDisplay.text) > 0 {
             varamozhi.makeToast("Text copied. Paste anywhere.", onView: self.view)
         }
     }
@@ -219,7 +219,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             inputStr.replaceCharactersInRange(range, withString: text)
         }
         
-        let f2:String = varamozhi.getConvertedText(inputStr) as String
+        let f2:String = varamozhi.getConvertedText(inputStr as String) as String
         
         self.textViewDisplay.text = f2
         
@@ -247,15 +247,15 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         let userInfo = notification.userInfo!
         
         
-        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
+        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
         
         
         // Convert the keyboard frame from screen to view coordinates.
         
-        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue()
+        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
         
-        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         
         let keyboardViewBeginFrame = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
         
@@ -428,7 +428,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         self.edgesForExtendedLayout = UIRectEdge.None
         
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as [NSObject : AnyObject]
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
         
@@ -452,6 +452,8 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         self.title = "Transliteration"
         
         
+        
+        //textViewType.inputViewController = varamozhi.KeyboardViewController()
     }
     
     // MARK: - Split view Delegate
@@ -476,7 +478,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     func expand(sender: AnyObject){
         
         
-       let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+       let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.hideMaster()
         
         var btnCon = UIBarButtonItem(image: UIImage(named: "contract.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("contract:"))
@@ -486,7 +488,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     }
     func contract(sender: AnyObject){
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.showMaster()
         
         let orientation = UIApplication.sharedApplication().statusBarOrientation

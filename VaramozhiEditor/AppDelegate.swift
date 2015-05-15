@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Override point for customization after application launch.
         
        
-        let splitViewController = self.window!.rootViewController as UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
         self.rootsplitview = splitViewController
@@ -34,13 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func getDisplayButton() -> UIBarButtonItem {
         
-       let splitViewController = self.window!.rootViewController as UISplitViewController
+       let splitViewController = self.window!.rootViewController as! UISplitViewController
        return splitViewController.displayModeButtonItem()
         
     }
     func hideMaster(){
         
-        let splitViewController = self.window!.rootViewController as UISplitViewController
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
         splitViewController.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
         
     }
@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        let splitViewController = self.window!.rootViewController as UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         let viewController: DetailViewController2? = navigationController.topViewController as? DetailViewController2
         
         if viewController != nil && viewController!.isKindOfClass(DetailViewController2) {
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         if displayMode == UISplitViewControllerDisplayMode.PrimaryHidden {
             
-            let navigationController = svc.viewControllers[svc.viewControllers.count-1] as UINavigationController
+            let navigationController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
             let controler: DetailViewController2? = navigationController.topViewController as? DetailViewController2
             if controler != nil && controler!.isKindOfClass(DetailViewController2) {
                 
@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
         }else{
             
-            let navigationController = svc.viewControllers[svc.viewControllers.count-1] as UINavigationController
+            let navigationController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
             let viewController: DetailViewController2? = navigationController.topViewController as? DetailViewController2
             
             if viewController != nil && viewController!.isKindOfClass(DetailViewController2) {

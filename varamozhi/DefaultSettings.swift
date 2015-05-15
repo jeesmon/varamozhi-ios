@@ -37,8 +37,8 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
             if isPad {
                 
                 return [
-                    ("General Settings", [kPeriodShortcut, kKeyboardClicks])
-                    //("Extra Settings", [kDisablePopupKeys])//+20150114
+                    ("General Settings", [kPeriodShortcut, kKeyboardClicks]),
+                    ("Extra Settings", [kDisablePopupKeys]) //+20150401
                     
                 ]
             }else {
@@ -63,10 +63,20 @@ class DefaultSettings: ExtraView, UITableViewDataSource, UITableViewDelegate {
     }
     var settingsNotes: [String: String] {
         get {
-            return [
-                kKeyboardClicks: "Please note that keyboard clicks will work only if “Allow Full Access” is enabled in the keyboard settings. Unfortunately, this is a limitation of the operating system.",
-                kDisablePopupKeys: "This will remove top banner of the keyboard and disable key popup on tap. You need to switch keyboard by tapping globe icon to see the change."
-            ]
+            let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+            //+20150401
+            if isPad {
+                return [
+                    kKeyboardClicks: "Please note that keyboard clicks will work only if “Allow Full Access” is enabled in the keyboard settings. Unfortunately, this is a limitation of the operating system.",
+                    kDisablePopupKeys: "This will remove top banner of the keyboard and disable the dictionary suppport. You need to switch keyboard by tapping globe icon to see the change."
+                ]
+            }else {
+                return [
+                    kKeyboardClicks: "Please note that keyboard clicks will work only if “Allow Full Access” is enabled in the keyboard settings. Unfortunately, this is a limitation of the operating system.",
+                    kDisablePopupKeys: "This will remove top banner of the keyboard and disable key popup on tap. You need to switch keyboard by tapping globe icon to see the change."
+                ]
+            }
+            
         }
     }
     

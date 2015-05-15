@@ -35,31 +35,6 @@
 		0355E0C41A4D61320054198B /* ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355E0C31A4D61320054198B /* ImageKey.swift */; };
 		0355E0E41A4D6B1C0054198B /* settingsadd.png in Resources */ = {isa = PBXBuildFile; fileRef = 0355E0E31A4D6B1C0054198B /* settingsadd.png */; };
 		0355E0E61A4DC27B0054198B /* info.html in Resources */ = {isa = PBXBuildFile; fileRef = 0355E0E51A4DC27B0054198B /* info.html */; };
-		037C25491A714C1F001EE8AA /* DefaultKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25151A714C1F001EE8AA /* DefaultKeyboard.swift */; };
-		037C254A1A714C1F001EE8AA /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25161A714C1F001EE8AA /* DefaultSettings.swift */; };
-		037C254B1A714C1F001EE8AA /* DefaultSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 037C25171A714C1F001EE8AA /* DefaultSettings.xib */; };
-		037C254C1A714C1F001EE8AA /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25181A714C1F001EE8AA /* DirectionEnum.swift */; };
-		037C254D1A714C1F001EE8AA /* ExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25191A714C1F001EE8AA /* ExtraView.swift */; };
-		037C254E1A714C1F001EE8AA /* ForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C251A1A714C1F001EE8AA /* ForwardingView.swift */; };
-		037C254F1A714C1F001EE8AA /* ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C251B1A714C1F001EE8AA /* ImageKey.swift */; };
-		037C25501A714C1F001EE8AA /* dismisskb.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C251D1A714C1F001EE8AA /* dismisskb.png */; };
-		037C25511A714C1F001EE8AA /* dismisskbwh.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C251E1A714C1F001EE8AA /* dismisskbwh.png */; };
-		037C25521A714C1F001EE8AA /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C251F1A714C1F001EE8AA /* gear.png */; };
-		037C25531A714C1F001EE8AA /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C25201A714C1F001EE8AA /* gear@2x.png */; };
-		037C25541A714C1F001EE8AA /* gear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C25211A714C1F001EE8AA /* gear@3x.png */; };
-		037C25551A714C1F001EE8AA /* gearwh.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C25221A714C1F001EE8AA /* gearwh.png */; };
-		037C25561A714C1F001EE8AA /* gearwh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C25231A714C1F001EE8AA /* gearwh@2x.png */; };
-		037C25571A714C1F001EE8AA /* gearwh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 037C25241A714C1F001EE8AA /* gearwh@3x.png */; };
-		037C25581A714C1F001EE8AA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 037C25251A714C1F001EE8AA /* Info.plist */; };
-		037C25591A714C1F001EE8AA /* KeyboardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25261A714C1F001EE8AA /* KeyboardConnector.swift */; };
-		037C255A1A714C1F001EE8AA /* KeyboardInputTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25271A714C1F001EE8AA /* KeyboardInputTraits.swift */; };
-		037C255B1A714C1F001EE8AA /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25281A714C1F001EE8AA /* KeyboardKey.swift */; };
-		037C255C1A714C1F001EE8AA /* KeyboardKeyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25291A714C1F001EE8AA /* KeyboardKeyBackground.swift */; };
-		037C255D1A714C1F001EE8AA /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C252A1A714C1F001EE8AA /* KeyboardLayout.swift */; };
-		037C255E1A714C1F001EE8AA /* KeyboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C252B1A714C1F001EE8AA /* KeyboardModel.swift */; };
-		037C25601A714C1F001EE8AA /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C252D1A714C1F001EE8AA /* KeyboardViewController.swift */; };
-		037C25631A714C1F001EE8AA /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25311A714C1F001EE8AA /* Shapes.swift */; };
-		037C25641A714C1F001EE8AA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037C25321A714C1F001EE8AA /* Utilities.swift */; };
 		037C25861A714D3E001EE8AA /* lex.macro_mozhi_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 037C25721A714D3E001EE8AA /* lex.macro_mozhi_unicode.c */; };
 		037C25871A714D3E001EE8AA /* lex.macro_mozhi_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 037C25721A714D3E001EE8AA /* lex.macro_mozhi_unicode.c */; };
 		037C25881A714D3E001EE8AA /* lex.mozhi_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 037C25731A714D3E001EE8AA /* lex.mozhi_unicode.c */; };
@@ -123,6 +98,10 @@
 		03BA721D1A72307A005B252D /* twitter_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA72021A72307A005B252D /* twitter_gray@2x.png */; };
 		03BA721E1A72307A005B252D /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA72031A72307A005B252D /* twitter.png */; };
 		03BA721F1A72307A005B252D /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA72041A72307A005B252D /* twitter@2x.png */; };
+		03C56C791AE540D8006602D3 /* mlwords.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 03C56C741AE540D8006602D3 /* mlwords.sqlite */; };
+		03C56C7A1AE540D8006602D3 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C56C751AE540D8006602D3 /* Words.swift */; };
+		03C56C7B1AE540D8006602D3 /* WordsDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C56C771AE540D8006602D3 /* WordsDAO.m */; };
+		03C56C7D1AE55121006602D3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C56C7C1AE55121006602D3 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,52 +166,6 @@
 		0355E0C31A4D61320054198B /* ImageKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageKey.swift; sourceTree = "<group>"; };
 		0355E0E31A4D6B1C0054198B /* settingsadd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsadd.png; sourceTree = "<group>"; };
 		0355E0E51A4DC27B0054198B /* info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = info.html; sourceTree = "<group>"; };
-		037C25151A714C1F001EE8AA /* DefaultKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeyboard.swift; sourceTree = "<group>"; };
-		037C25161A714C1F001EE8AA /* DefaultSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
-		037C25171A714C1F001EE8AA /* DefaultSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultSettings.xib; sourceTree = "<group>"; };
-		037C25181A714C1F001EE8AA /* DirectionEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
-		037C25191A714C1F001EE8AA /* ExtraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtraView.swift; sourceTree = "<group>"; };
-		037C251A1A714C1F001EE8AA /* ForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardingView.swift; sourceTree = "<group>"; };
-		037C251B1A714C1F001EE8AA /* ImageKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageKey.swift; sourceTree = "<group>"; };
-		037C251D1A714C1F001EE8AA /* dismisskb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dismisskb.png; sourceTree = "<group>"; };
-		037C251E1A714C1F001EE8AA /* dismisskbwh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dismisskbwh.png; sourceTree = "<group>"; };
-		037C251F1A714C1F001EE8AA /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
-		037C25201A714C1F001EE8AA /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
-		037C25211A714C1F001EE8AA /* gear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@3x.png"; sourceTree = "<group>"; };
-		037C25221A714C1F001EE8AA /* gearwh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gearwh.png; sourceTree = "<group>"; };
-		037C25231A714C1F001EE8AA /* gearwh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gearwh@2x.png"; sourceTree = "<group>"; };
-		037C25241A714C1F001EE8AA /* gearwh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gearwh@3x.png"; sourceTree = "<group>"; };
-		037C25251A714C1F001EE8AA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		037C25261A714C1F001EE8AA /* KeyboardConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardConnector.swift; sourceTree = "<group>"; };
-		037C25271A714C1F001EE8AA /* KeyboardInputTraits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInputTraits.swift; sourceTree = "<group>"; };
-		037C25281A714C1F001EE8AA /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
-		037C25291A714C1F001EE8AA /* KeyboardKeyBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKeyBackground.swift; sourceTree = "<group>"; };
-		037C252A1A714C1F001EE8AA /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
-		037C252B1A714C1F001EE8AA /* KeyboardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
-		037C252D1A714C1F001EE8AA /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		037C25311A714C1F001EE8AA /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
-		037C25321A714C1F001EE8AA /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		037C25331A714C1F001EE8AA /* varamozhi-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "varamozhi-Bridging-Header.h"; sourceTree = "<group>"; };
-		037C25351A714C1F001EE8AA /* lex.macro_mozhi_unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lex.macro_mozhi_unicode.c; sourceTree = "<group>"; };
-		037C25361A714C1F001EE8AA /* lex.mozhi_unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lex.mozhi_unicode.c; sourceTree = "<group>"; };
-		037C25371A714C1F001EE8AA /* list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
-		037C25381A714C1F001EE8AA /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
-		037C25391A714C1F001EE8AA /* mal-decl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mal-decl.h"; sourceTree = "<group>"; };
-		037C253A1A714C1F001EE8AA /* mal-type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mal-type.h"; sourceTree = "<group>"; };
-		037C253B1A714C1F001EE8AA /* mal.tab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mal.tab.c; sourceTree = "<group>"; };
-		037C253C1A714C1F001EE8AA /* mal.tab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mal.tab.h; sourceTree = "<group>"; };
-		037C253D1A714C1F001EE8AA /* mal_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mal_api.h; sourceTree = "<group>"; };
-		037C253E1A714C1F001EE8AA /* mozhi_unicode_default.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mozhi_unicode_default.c; sourceTree = "<group>"; };
-		037C253F1A714C1F001EE8AA /* mozhi_unicode_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mozhi_unicode_default.h; sourceTree = "<group>"; };
-		037C25401A714C1F001EE8AA /* status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = status.h; sourceTree = "<group>"; };
-		037C25411A714C1F001EE8AA /* strlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strlist.c; sourceTree = "<group>"; };
-		037C25421A714C1F001EE8AA /* strlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strlist.h; sourceTree = "<group>"; };
-		037C25431A714C1F001EE8AA /* strpair.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strpair.c; sourceTree = "<group>"; };
-		037C25441A714C1F001EE8AA /* strpair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strpair.h; sourceTree = "<group>"; };
-		037C25451A714C1F001EE8AA /* strstruct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strstruct.c; sourceTree = "<group>"; };
-		037C25461A714C1F001EE8AA /* strstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strstruct.h; sourceTree = "<group>"; };
-		037C25471A714C1F001EE8AA /* txt2html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = txt2html.c; sourceTree = "<group>"; };
-		037C25481A714C1F001EE8AA /* txt2html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = txt2html.h; sourceTree = "<group>"; };
 		037C25721A714D3E001EE8AA /* lex.macro_mozhi_unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lex.macro_mozhi_unicode.c; sourceTree = "<group>"; };
 		037C25731A714D3E001EE8AA /* lex.mozhi_unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lex.mozhi_unicode.c; sourceTree = "<group>"; };
 		037C25741A714D3E001EE8AA /* list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
@@ -304,6 +237,11 @@
 		03BA72021A72307A005B252D /* twitter_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter_gray@2x.png"; sourceTree = "<group>"; };
 		03BA72031A72307A005B252D /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		03BA72041A72307A005B252D /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
+		03C56C741AE540D8006602D3 /* mlwords.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mlwords.sqlite; sourceTree = "<group>"; };
+		03C56C751AE540D8006602D3 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
+		03C56C761AE540D8006602D3 /* WordsDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsDAO.h; sourceTree = "<group>"; };
+		03C56C771AE540D8006602D3 /* WordsDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsDAO.m; sourceTree = "<group>"; };
+		03C56C7C1AE55121006602D3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C56C7D1AE55121006602D3 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +275,10 @@
 		0355E0841A4D5EC70054198B /* varamozhi */ = {
 			isa = PBXGroup;
 			children = (
+				03C56C741AE540D8006602D3 /* mlwords.sqlite */,
+				03C56C751AE540D8006602D3 /* Words.swift */,
+				03C56C761AE540D8006602D3 /* WordsDAO.h */,
+				03C56C771AE540D8006602D3 /* WordsDAO.m */,
 				0355E0A71A4D604C0054198B /* Controller */,
 				0355E0A61A4D60440054198B /* Model */,
 				0355E0A51A4D603E0054198B /* Views */,
@@ -413,75 +356,6 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		037C25141A714C1F001EE8AA /* varamozhi */ = {
-			isa = PBXGroup;
-			children = (
-				037C25151A714C1F001EE8AA /* DefaultKeyboard.swift */,
-				037C25161A714C1F001EE8AA /* DefaultSettings.swift */,
-				037C25171A714C1F001EE8AA /* DefaultSettings.xib */,
-				037C25181A714C1F001EE8AA /* DirectionEnum.swift */,
-				037C25191A714C1F001EE8AA /* ExtraView.swift */,
-				037C251A1A714C1F001EE8AA /* ForwardingView.swift */,
-				037C251B1A714C1F001EE8AA /* ImageKey.swift */,
-				037C251C1A714C1F001EE8AA /* images */,
-				037C25251A714C1F001EE8AA /* Info.plist */,
-				037C25261A714C1F001EE8AA /* KeyboardConnector.swift */,
-				037C25271A714C1F001EE8AA /* KeyboardInputTraits.swift */,
-				037C25281A714C1F001EE8AA /* KeyboardKey.swift */,
-				037C25291A714C1F001EE8AA /* KeyboardKeyBackground.swift */,
-				037C252A1A714C1F001EE8AA /* KeyboardLayout.swift */,
-				037C252B1A714C1F001EE8AA /* KeyboardModel.swift */,
-				037C252D1A714C1F001EE8AA /* KeyboardViewController.swift */,
-				037C25311A714C1F001EE8AA /* Shapes.swift */,
-				037C25321A714C1F001EE8AA /* Utilities.swift */,
-				037C25331A714C1F001EE8AA /* varamozhi-Bridging-Header.h */,
-				037C25341A714C1F001EE8AA /* varamozhicore */,
-			);
-			path = varamozhi;
-			sourceTree = SOURCE_ROOT;
-		};
-		037C251C1A714C1F001EE8AA /* images */ = {
-			isa = PBXGroup;
-			children = (
-				037C251D1A714C1F001EE8AA /* dismisskb.png */,
-				037C251E1A714C1F001EE8AA /* dismisskbwh.png */,
-				037C251F1A714C1F001EE8AA /* gear.png */,
-				037C25201A714C1F001EE8AA /* gear@2x.png */,
-				037C25211A714C1F001EE8AA /* gear@3x.png */,
-				037C25221A714C1F001EE8AA /* gearwh.png */,
-				037C25231A714C1F001EE8AA /* gearwh@2x.png */,
-				037C25241A714C1F001EE8AA /* gearwh@3x.png */,
-			);
-			path = images;
-			sourceTree = "<group>";
-		};
-		037C25341A714C1F001EE8AA /* varamozhicore */ = {
-			isa = PBXGroup;
-			children = (
-				037C25351A714C1F001EE8AA /* lex.macro_mozhi_unicode.c */,
-				037C25361A714C1F001EE8AA /* lex.mozhi_unicode.c */,
-				037C25371A714C1F001EE8AA /* list.c */,
-				037C25381A714C1F001EE8AA /* list.h */,
-				037C25391A714C1F001EE8AA /* mal-decl.h */,
-				037C253A1A714C1F001EE8AA /* mal-type.h */,
-				037C253B1A714C1F001EE8AA /* mal.tab.c */,
-				037C253C1A714C1F001EE8AA /* mal.tab.h */,
-				037C253D1A714C1F001EE8AA /* mal_api.h */,
-				037C253E1A714C1F001EE8AA /* mozhi_unicode_default.c */,
-				037C253F1A714C1F001EE8AA /* mozhi_unicode_default.h */,
-				037C25401A714C1F001EE8AA /* status.h */,
-				037C25411A714C1F001EE8AA /* strlist.c */,
-				037C25421A714C1F001EE8AA /* strlist.h */,
-				037C25431A714C1F001EE8AA /* strpair.c */,
-				037C25441A714C1F001EE8AA /* strpair.h */,
-				037C25451A714C1F001EE8AA /* strstruct.c */,
-				037C25461A714C1F001EE8AA /* strstruct.h */,
-				037C25471A714C1F001EE8AA /* txt2html.c */,
-				037C25481A714C1F001EE8AA /* txt2html.h */,
-			);
-			path = varamozhicore;
-			sourceTree = "<group>";
-		};
 		037C25711A714D3E001EE8AA /* varamozhicore */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,12 +386,13 @@
 		0388DD441A49846D00E413A5 = {
 			isa = PBXGroup;
 			children = (
+				03C56C7C1AE55121006602D3 /* libsqlite3.0.dylib */,
 				03BA71E81A722857005B252D /* MessageUI.framework */,
 				03BA71E61A722850005B252D /* Social.framework */,
+				0355E0841A4D5EC70054198B /* varamozhi */,
 				037C25711A714D3E001EE8AA /* varamozhicore */,
 				0388DD4F1A49846D00E413A5 /* VaramozhiEditor */,
 				0388DD671A49846D00E413A5 /* VaramozhiEditorTests */,
-				0355E0841A4D5EC70054198B /* varamozhi */,
 				0388DD4E1A49846D00E413A5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -540,7 +415,6 @@
 				037C259F1A714E6B001EE8AA /* varamozhi-Bridging-Header.h */,
 				037C259B1A714E11001EE8AA /* MyBridge.h */,
 				037C259C1A714E11001EE8AA /* MyBridge.m */,
-				037C25141A714C1F001EE8AA /* varamozhi */,
 				0388DD741A49A0C300E413A5 /* images */,
 				0388DD521A49846D00E413A5 /* AppDelegate.swift */,
 				0388DD541A49846D00E413A5 /* MasterViewController.swift */,
@@ -728,6 +602,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C56C791AE540D8006602D3 /* mlwords.sqlite in Resources */,
 				0355E09D1A4D60120054198B /* dismisskbwh.png in Resources */,
 				0355E0A31A4D60120054198B /* gearwh@3x.png in Resources */,
 				0355E0A01A4D60120054198B /* gear@3x.png in Resources */,
@@ -748,16 +623,11 @@
 				0388DD5A1A49846D00E413A5 /* Main.storyboard in Resources */,
 				03BA72121A72307A005B252D /* mail_gray@2x.png in Resources */,
 				03BA720E1A72307A005B252D /* facebook@2x.png in Resources */,
-				037C25581A714C1F001EE8AA /* Info.plist in Resources */,
 				03BA721D1A72307A005B252D /* twitter_gray@2x.png in Resources */,
 				03BA72081A72307A005B252D /* envelope_gray@2x.png in Resources */,
 				03BA720D1A72307A005B252D /* facebook.png in Resources */,
-				037C25541A714C1F001EE8AA /* gear@3x.png in Resources */,
-				037C25551A714C1F001EE8AA /* gearwh.png in Resources */,
-				037C25521A714C1F001EE8AA /* gear.png in Resources */,
 				03556F1F1A529CD30070187D /* installation.html in Resources */,
 				03BA72061A72307A005B252D /* copy@2x.png in Resources */,
-				037C25531A714C1F001EE8AA /* gear@2x.png in Resources */,
 				03BA72101A72307A005B252D /* info@2x.png in Resources */,
 				03BA720B1A72307A005B252D /* facebook_gray.png in Resources */,
 				03BA72071A72307A005B252D /* envelope_gray.png in Resources */,
@@ -766,12 +636,9 @@
 				03BA72131A72307A005B252D /* mail.png in Resources */,
 				03BA721F1A72307A005B252D /* twitter@2x.png in Resources */,
 				03BA72091A72307A005B252D /* envelope.png in Resources */,
-				037C25561A714C1F001EE8AA /* gearwh@2x.png in Resources */,
 				03BA721C1A72307A005B252D /* twitter_gray.png in Resources */,
 				039CBCBB1A7913C100290593 /* back@2x.png in Resources */,
-				037C25571A714C1F001EE8AA /* gearwh@3x.png in Resources */,
 				03BA72141A72307A005B252D /* mail@2x.png in Resources */,
-				037C25511A714C1F001EE8AA /* dismisskbwh.png in Resources */,
 				03BA72181A72307A005B252D /* question_mark@2x.png in Resources */,
 				03BA72111A72307A005B252D /* mail_gray.png in Resources */,
 				039CBCB61A78AFB600290593 /* contract.png in Resources */,
@@ -781,9 +648,7 @@
 				03BA72161A72307A005B252D /* more@2x.png in Resources */,
 				0388DD761A49A0C300E413A5 /* lipi.png in Resources */,
 				03BA720A1A72307A005B252D /* envelope@2x.png in Resources */,
-				037C25501A714C1F001EE8AA /* dismisskb.png in Resources */,
 				03BA721A1A72307A005B252D /* remove@2x.png in Resources */,
-				037C254B1A714C1F001EE8AA /* DefaultSettings.xib in Resources */,
 				03BA721B1A72307A005B252D /* settings1.png in Resources */,
 				0388DD5F1A49846D00E413A5 /* LaunchScreen.xib in Resources */,
 				0355E07E1A4D52050054198B /* Settings.bundle in Resources */,
@@ -827,11 +692,13 @@
 				0355E0C11A4D60B40054198B /* Shapes.swift in Sources */,
 				0355E0BE1A4D60B40054198B /* KeyboardConnector.swift in Sources */,
 				0355E0B21A4D60930054198B /* DirectionEnum.swift in Sources */,
+				03C56C7B1AE540D8006602D3 /* WordsDAO.m in Sources */,
 				0355E0BD1A4D60B40054198B /* ExtraView.swift in Sources */,
 				037C25971A714D3E001EE8AA /* txt2html.c in Sources */,
 				0355E0881A4D5EC70054198B /* KeyboardViewController.swift in Sources */,
 				0355E0BF1A4D60B40054198B /* KeyboardKey.swift in Sources */,
 				037C25931A714D3E001EE8AA /* strpair.c in Sources */,
+				03C56C7A1AE540D8006602D3 /* Words.swift in Sources */,
 				037C25951A714D3E001EE8AA /* strstruct.c in Sources */,
 				0355E0AB1A4D607C0054198B /* ForwardingView.swift in Sources */,
 			);
@@ -843,32 +710,17 @@
 			files = (
 				0388DD571A49846D00E413A5 /* DetailViewController.swift in Sources */,
 				037C258A1A714D3E001EE8AA /* list.c in Sources */,
-				037C25591A714C1F001EE8AA /* KeyboardConnector.swift in Sources */,
 				037C258C1A714D3E001EE8AA /* mal.tab.c in Sources */,
 				037C25961A714D3E001EE8AA /* txt2html.c in Sources */,
-				037C255C1A714C1F001EE8AA /* KeyboardKeyBackground.swift in Sources */,
 				03A55DD11A89E15400D9C951 /* Toast+UIView.m in Sources */,
-				037C25641A714C1F001EE8AA /* Utilities.swift in Sources */,
 				037C25941A714D3E001EE8AA /* strstruct.c in Sources */,
-				037C255E1A714C1F001EE8AA /* KeyboardModel.swift in Sources */,
 				037C25921A714D3E001EE8AA /* strpair.c in Sources */,
 				0388DD551A49846D00E413A5 /* MasterViewController.swift in Sources */,
-				037C255D1A714C1F001EE8AA /* KeyboardLayout.swift in Sources */,
-				037C254C1A714C1F001EE8AA /* DirectionEnum.swift in Sources */,
 				037C25881A714D3E001EE8AA /* lex.mozhi_unicode.c in Sources */,
-				037C254A1A714C1F001EE8AA /* DefaultSettings.swift in Sources */,
-				037C255B1A714C1F001EE8AA /* KeyboardKey.swift in Sources */,
-				037C25601A714C1F001EE8AA /* KeyboardViewController.swift in Sources */,
-				037C254D1A714C1F001EE8AA /* ExtraView.swift in Sources */,
-				037C25631A714C1F001EE8AA /* Shapes.swift in Sources */,
 				0380CBE21A6D36C700AEA6B7 /* DetailViewController2.swift in Sources */,
 				037C25861A714D3E001EE8AA /* lex.macro_mozhi_unicode.c in Sources */,
-				037C254E1A714C1F001EE8AA /* ForwardingView.swift in Sources */,
-				037C25491A714C1F001EE8AA /* DefaultKeyboard.swift in Sources */,
 				037C25901A714D3E001EE8AA /* strlist.c in Sources */,
 				037C258E1A714D3E001EE8AA /* mozhi_unicode_default.c in Sources */,
-				037C255A1A714C1F001EE8AA /* KeyboardInputTraits.swift in Sources */,
-				037C254F1A714C1F001EE8AA /* ImageKey.swift in Sources */,
 				0388DD531A49846D00E413A5 /* AppDelegate.swift in Sources */,
 				037C259D1A714E11001EE8AA /* MyBridge.m in Sources */,
 			);
@@ -929,7 +781,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -945,7 +797,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 			};
@@ -988,7 +840,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "b66beafa-64a9-4164-a234-8f8c40ec0d4f";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1025,7 +877,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "b66beafa-64a9-4164-a234-8f8c40ec0d4f";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1042,7 +894,7 @@
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 			};
 			name = Debug;
@@ -1057,7 +909,7 @@
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 			};
 			name = Release;
@@ -1077,7 +929,7 @@
 				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
 			};
 			name = Debug;
@@ -1093,7 +945,7 @@
 				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9155a599-3662-444e-b4c2-d22b4693672d";
+				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
 			};
 			name = Release;
