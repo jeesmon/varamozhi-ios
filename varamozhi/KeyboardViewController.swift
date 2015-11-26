@@ -12,13 +12,20 @@ import AudioToolbox
 let metrics: [String:Float] = [
     "topBanner": 30
 ]
+
 func metric(name: String) -> CGFloat {
     
     //+20141231
     if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
         return 0
     }else{
-        return CGFloat(metrics[name]!)
+        //+20150325
+        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+            return CGFloat(metrics[name]!)
+        } else {
+            return CGFloat(metrics[name]!) * 1.3
+        }
+        
     }
     
     
@@ -42,12 +49,13 @@ class KeyboardViewController: UIInputViewController {
     var layout: KeyboardLayout?
     var heightConstraint: NSLayoutConstraint?
     
-    //+20141218var bannerView: ExtraView?
+    var bannerView: ExtraView? //+20150325
     var settingsView: ExtraView?
     
     //+20141209
     var varamozhi: MyBridge = MyBridge()
-    var typedKeys:String = "";
+    var typedKeys:String = ""
+    var lastchar: String = ""
     
     var currentMode: Int {
         didSet {
@@ -119,7 +127,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     // TODO: why does the app crash if this isn't here?
-    convenience override init() {
+    convenience init() {
         self.init(nibName: nil, bundle: nil)
     }
     
@@ -131,6 +139,10 @@ class KeyboardViewController: UIInputViewController {
             kKeyboardClicks: true,
             kDisablePopupKeys: false
         ])
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDisablePopupKeys)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kPeriodShortcut)
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kKeyboardClicks)
+        
         
         self.keyboard = defaultKeyboard()
         
@@ -145,7 +157,7 @@ class KeyboardViewController: UIInputViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("defaultsChanged:"), name: NSUserDefaultsDidChangeNotification, object: nil)
     }
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
@@ -157,7 +169,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func defaultsChanged(notification: NSNotification) {
-        let defaults = notification.object as NSUserDefaults
+        _ = notification.object as! NSUserDefaults
         self.updateKeyCaps(!self.shiftState.uppercase())
     }
     
@@ -165,9 +177,9 @@ class KeyboardViewController: UIInputViewController {
     var kludge: UIView?
     func setupKludge() {
         if self.kludge == nil {
-            var kludge = UIView()
+            let kludge = UIView()
             self.view.addSubview(kludge)
-            kludge.setTranslatesAutoresizingMaskIntoConstraints(false)
+            kludge.translatesAutoresizingMaskIntoConstraints = false
             kludge.hidden = true
             
             let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
@@ -202,13 +214,13 @@ class KeyboardViewController: UIInputViewController {
     var constraintsAdded: Bool = false
     func setupLayout() {
         if !constraintsAdded {
-            self.layout = self.dynamicType.layoutClass(model: self.keyboard, superview: self.forwardingView, layoutConstants: self.dynamicType.layoutConstants, globalColors: self.dynamicType.globalColors, darkMode: self.darkMode(), solidColorMode: self.solidColorMode())
+            self.layout = self.dynamicType.layoutClass.init(model: self.keyboard, superview: self.forwardingView, layoutConstants: self.dynamicType.layoutConstants, globalColors: self.dynamicType.globalColors, darkMode: self.darkMode(), solidColorMode: self.solidColorMode())
             
             self.layout?.initialize()
             self.setupKeys()
             self.setMode(0)
             
-            self.setupKludge()
+            //self.setupKludge()
             
             self.updateKeyCaps(!self.shiftState.uppercase())
             self.setCapsIfNeeded()
@@ -222,13 +234,9 @@ class KeyboardViewController: UIInputViewController {
     
     // only available after frame becomes non-zero
     func darkMode() -> Bool {
-        var darkMode = { () -> Bool in
-            if let proxy = self.textDocumentProxy as? UITextDocumentProxy {
-                return proxy.keyboardAppearance == UIKeyboardAppearance.Dark
-            }
-            else {
-                return false
-            }
+        let darkMode = { () -> Bool in
+            let proxy = self.textDocumentProxy
+            return proxy.keyboardAppearance == UIKeyboardAppearance.Dark
         }()
         
         return darkMode
@@ -249,7 +257,7 @@ class KeyboardViewController: UIInputViewController {
         
         self.setupLayout()
         
-        let orientationSavvyBounds = CGRectMake(0, 0, self.view.bounds.width, self.heightForOrientation(self.interfaceOrientation, withTopBanner: false))
+        let orientationSavvyBounds = CGRectMake(0, 0, self.view.bounds.width, self.heightForOrientation(false))
         
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             // do nothing
@@ -260,7 +268,7 @@ class KeyboardViewController: UIInputViewController {
             self.lastLayoutBounds = orientationSavvyBounds
         }
         
-        //self.bannerView?.frame = CGRectMake(0, 0, self.view.bounds.width, metric("topBanner"))
+        self.bannerView?.frame = CGRectMake(0, 0, self.view.bounds.width, metric("topBanner"))//+20150325
         
         let newOrigin = CGPointMake(0, self.view.bounds.height - self.forwardingView.bounds.height)
         self.forwardingView.frame.origin = newOrigin
@@ -269,23 +277,45 @@ class KeyboardViewController: UIInputViewController {
     override func loadView() {
         super.loadView()
         
-        /*if var aBanner = self.createBanner() {
+        //+20150325
+        if let aBanner = self.createBanner() {
             aBanner.hidden = true
             self.view.insertSubview(aBanner, belowSubview: self.forwardingView)
             self.bannerView = aBanner
-        }*/
+        }
         
         
 
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.bannerView?.hidden = false
-        self.keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: true)
+        self.bannerView?.hidden = false //+20150325
+        self.keyboardHeight = self.heightForOrientation(false)
+        
+    }
+    /*+20150421
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIDeviceOrientation, duration: NSTimeInterval) {
+        self.keyboardHeight = self.heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+    }
+    **/
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator){
+            
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        self.forwardingView.resetTrackedViews()
+        //self.shiftStartingState = nil
+        self.shiftWasMultitapped = false
+        
+        self.keyboardHeight = self.heightForOrientation(false)//+20151123
+        
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        self.keyboardHeight = self.heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+        self.forwardingView.resetTrackedViews()
+        //self.shiftStartingState = nil
+        self.shiftWasMultitapped = false
+        
+        self.keyboardHeight = self.heightForOrientation(false)//+20151123
     }
     
     //+20141217
@@ -301,7 +331,6 @@ class KeyboardViewController: UIInputViewController {
         
         return workaroundClassVariable
     }
-    
     func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
         let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
         
@@ -312,20 +341,35 @@ class KeyboardViewController: UIInputViewController {
         let topBannerHeight = (withTopBanner ? metric("topBanner") : 0)
         KeyboardViewController.workaroundClassVariable = orientation.isLandscape
         
-        
-        //+20141231
-        
-        if(isPad){
-        
-            return CGFloat(orientation.isPortrait ? canonicalPortraitHeight  : canonicalLandscapeHeight )//+ topBannerHeight +20141218
-        }else{
-            return CGFloat(orientation.isPortrait ? canonicalPortraitHeight + topBannerHeight  : canonicalLandscapeHeight + topBannerHeight )// +20141218
-        }
+        return CGFloat(orientation.isPortrait ? canonicalPortraitHeight  + topBannerHeight  : canonicalLandscapeHeight  + topBannerHeight )
         
     }
     
-    
-    
+    func heightForOrientation(withTopBanner: Bool) -> CGFloat {
+        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        
+        //+20151123
+        let screenSize = UIScreen.mainScreen().bounds.size
+        let screenH = screenSize.height
+        let screenW = screenSize.width
+        let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
+        KeyboardViewController.workaroundClassVariable = isLandscape
+        
+        
+        //TODO: hardcoded stuff
+        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        //let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
+        let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(!isLandscape && actualScreenWidth >= 400 ? 226 : 216))
+        let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
+        let topBannerHeight = (withTopBanner ? metric("topBanner") : 0)
+        //KeyboardViewController.workaroundClassVariable = orientation.isLandscape
+        
+        
+        return CGFloat(!isLandscape ? canonicalPortraitHeight  + topBannerHeight  : canonicalLandscapeHeight  + topBannerHeight )
+        
+        //return CGFloat(orientation.isPortrait ? canonicalPortraitHeight  + topBannerHeight  : canonicalLandscapeHeight  + topBannerHeight )
+        
+    }
     /*
     BUG NOTE
 
@@ -344,7 +388,7 @@ class KeyboardViewController: UIInputViewController {
         for page in keyboard.pages {
             for rowKeys in page.rows { // TODO: quick hack
                 for key in rowKeys {
-                    var keyView = self.layout!.viewForKey(key)! // TODO: check
+                    let keyView = self.layout!.viewForKey(key)! // TODO: check
                     
                     keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)//+201412
                     
@@ -352,7 +396,7 @@ class KeyboardViewController: UIInputViewController {
                     case Key.KeyType.KeyboardChange:
                         keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                     case Key.KeyType.Backspace:
-                        let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                        let cancelEvents: UIControlEvents = [UIControlEvents.TouchUpInside, UIControlEvents.TouchUpInside, UIControlEvents.TouchDragExit, UIControlEvents.TouchUpOutside, UIControlEvents.TouchCancel, UIControlEvents.TouchDragOutside]
                         
                         keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                         keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
@@ -375,17 +419,18 @@ class KeyboardViewController: UIInputViewController {
                     
                     if key.isCharacter {
                         //+20150101
-                        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad && !NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+                        //+20151123  && !NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys
+                        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
 
-                            keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                            keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
                             keyView.addTarget(keyView, action: Selector("hidePopup"), forControlEvents: .TouchDragExit)
-                            keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
+                            keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside])
                         }
                     }
                     
                     if key.type != Key.KeyType.Shift && key.type != Key.KeyType.ModeChange {
-                        keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
-                        keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit)
+                        keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
+                        keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit])
                     }
                     keyView.addTarget(self, action: Selector("playKeySound"), forControlEvents: .TouchDown)
                 }
@@ -436,17 +481,17 @@ class KeyboardViewController: UIInputViewController {
     }
 
     // TODO: this is currently not working as intended; only called when selection changed -- iOS bug
-    override func textDidChange(textInput: UITextInput) {
+    override func textDidChange(textInput: UITextInput?) {
         //typedKeys = ""//+20141210
-        let previousContext:String? = (self.textDocumentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
-        if  countElements(typedKeys) > 0  {
+        let previousContext:String? = self.textDocumentProxy.documentContextBeforeInput
+        if  typedKeys.characters.count > 0  {
             
             if previousContext != nil{
                 
                 let contextStr:String = previousContext!
                 
                 let f1:NSString = varamozhi.getConvertedText(typedKeys)
-                let range = contextStr.rangeOfString(f1)
+                let range = contextStr.rangeOfString(f1 as String)
                 if range?.endIndex != contextStr.endIndex {
                     typedKeys = ""
                 }
@@ -459,7 +504,7 @@ class KeyboardViewController: UIInputViewController {
         
         self.contextChanged()
     }
-    override func textWillChange(textInput: UITextInput) {
+    override func textWillChange(textInput: UITextInput?) {
         
         
     }
@@ -492,8 +537,8 @@ class KeyboardViewController: UIInputViewController {
         self.layout?.darkMode = appearanceIsDark
         self.layout?.updateKeyAppearanceTemp()
         
-        //self.bannerView?.darkMode = appearanceIsDark
-        self.settingsView?.darkMode = appearanceIsDark
+        self.bannerView?.darkMode = appearanceIsDark //+20150325
+        //self.settingsView?.darkMode = appearanceIsDark
     }
     
     func highlightKey(sender: KeyboardKey) {
@@ -510,6 +555,61 @@ class KeyboardViewController: UIInputViewController {
         if let model = self.layout?.keyForView(sender) {
             self.keyPressed(model)
             
+            /*
+            //m+20150325
+            let previousContext:String? = (self.textDocumentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
+            
+            if let banner = self.bannerView as? PredictiveBanner {
+                
+                if previousContext == nil || previousContext!.isEmpty {
+                    
+                    banner.clearBanner()
+                    
+                }else{
+                    
+                    
+                    
+                    if lastchar == " " {
+                        banner.clearBanner()
+                    }else{
+                        
+                        let range = previousContext!.rangeOfString(" ", options: NSStringCompareOptions.BackwardsSearch)
+                        
+                        if range != nil {
+                            let lastword = previousContext!.substringFromIndex(range!.endIndex)
+                            
+                            let ct = lastword.utf16.count
+                            print("ct = \(ct)")
+                            if ct == 1 {
+                                banner.updateAlternateKeyList(lastword, Mode:0)
+                            }else if ct > 1 {
+                                banner.updateAlternateKeyList(lastword, Mode:1)
+                            }
+                            
+                            
+                            
+                        }else{
+                            let ct = previousContext!.utf16.count
+                            print("ct2 = \(ct)")
+                            if ct == 1 {
+                                
+                                banner.updateAlternateKeyList(previousContext, Mode:0)
+                            }else if ct > 1 {
+                                banner.updateAlternateKeyList(previousContext, Mode:1)
+                            }
+                            
+                        }
+
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+            */
             // auto exit from special char subkeyboard
             if model.type == Key.KeyType.Space || model.type == Key.KeyType.Return {
                 self.setMode(0)
@@ -523,10 +623,7 @@ class KeyboardViewController: UIInputViewController {
             
             // auto period on double space
             // TODO: timeout
-            
-            var lastCharCountInBeforeContext: Int = 0
-            var readyForDoubleSpacePeriod: Bool = true
-            
+           
             self.handleAutoPeriod(model)
             // TODO: reset context
         }
@@ -550,9 +647,8 @@ class KeyboardViewController: UIInputViewController {
             }
             
             let charactersAreInCorrectState = { () -> Bool in
-                let previousContext = (self.textDocumentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
-                
-                if previousContext == nil || countElements(previousContext!) < 3 {
+                let previousContext = self.textDocumentProxy.documentContextBeforeInput
+                if previousContext == nil || (previousContext!).characters.count < 3 {
                     return false
                 }
                 
@@ -578,10 +674,10 @@ class KeyboardViewController: UIInputViewController {
             }()
             
             if charactersAreInCorrectState {
-                (self.textDocumentProxy as? UITextDocumentProxy)?.deleteBackward()
-                (self.textDocumentProxy as? UITextDocumentProxy)?.deleteBackward()
-                (self.textDocumentProxy as? UITextDocumentProxy)?.insertText(".")
-                (self.textDocumentProxy as? UITextDocumentProxy)?.insertText(" ")
+                self.textDocumentProxy.deleteBackward()
+                self.textDocumentProxy.deleteBackward()
+                self.textDocumentProxy.insertText(".")
+                self.textDocumentProxy.insertText(" ")
             }
             
             self.autoPeriodState = .NoSpace
@@ -603,18 +699,56 @@ class KeyboardViewController: UIInputViewController {
     func backspaceDown(sender: KeyboardKey) {
         self.cancelBackspaceTimers()
         
+        lastchar = "" //+20150129
         //+20141229self.playKeySound()
         
-        if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
+        let textDocumentProxy = self.textDocumentProxy as UIKeyInput
             textDocumentProxy.deleteBackward()
-        }
+            /*
+            //+20150326
+            let previousContext:String? = (self.textDocumentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
+            
+            if let banner = self.bannerView as? PredictiveBanner {
+                
+                if previousContext == nil || previousContext!.isEmpty {
+                    
+                    banner.clearBanner()
+                    
+                }else{
+                    
+                    let range = previousContext!.rangeOfString(" ", options: NSStringCompareOptions.BackwardsSearch)
+                    
+                    if range != nil {
+                        let lastword = previousContext!.substringFromIndex(range!.endIndex)
+                        let ct = lastword.utf16.count
+                        if ct == 1 {
+                            banner.updateAlternateKeyList(lastword, Mode:0)
+                        }else if ct > 1{
+                            banner.updateAlternateKeyList(lastword, Mode:1)
+                        }
+                        
+                        
+                    }else{
+                        
+                        let ct = previousContext!.utf16.count
+                        if ct == 1 {
+                            
+                            banner.updateAlternateKeyList(previousContext, Mode:0)
+                        }else if ct > 1 {
+                            banner.updateAlternateKeyList(previousContext, Mode:1)
+                        }
+                    }
+                }
+            }*/
+
+        //}
         //+20141208
-        let stringLength = countElements(typedKeys)
+        let stringLength = typedKeys.characters.count
         if stringLength > 1 {
             
             var isEmptyy = false
-            var documentProxy = self.textDocumentProxy as? UITextDocumentProxy
-            if let beforeContext = documentProxy?.documentContextBeforeInput {
+            let documentProxy = self.textDocumentProxy as UITextDocumentProxy
+            if let beforeContext = documentProxy.documentContextBeforeInput {
                 let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
                 isEmptyy = self.characterIsWhitespace(previousCharacter)
             }
@@ -625,24 +759,21 @@ class KeyboardViewController: UIInputViewController {
                 typedKeys = "";
             }else{
                 
-                let proxy = self.textDocumentProxy as? UIKeyInput
+                let proxy = self.textDocumentProxy as UIKeyInput
                 
-                if proxy != nil {
-                 
-                    let proxy1 = proxy!
+                
                     let f1:NSString = varamozhi.getConvertedText(typedKeys)
                     var i:Int = f1.length;
                     while i > 1
                     {
-                        proxy1.deleteBackward()
+                        proxy.deleteBackward()
                         i--;
                         
                     }
                     typedKeys = typedKeys.substringToIndex(typedKeys.endIndex.predecessor())
 
                     let f2:NSString = varamozhi.getConvertedText(typedKeys)
-                    proxy1.insertText(f2)
-                }
+                    proxy.insertText(f2 as String)
                 
                 
             }
@@ -668,38 +799,16 @@ class KeyboardViewController: UIInputViewController {
     func backspaceRepeatCallback() {
         
         self.playKeySound()
-        if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
-            
-            //+20141208
-            /*let stringLength = countElements(typedKeys)
-            if stringLength > 1 {
-                
-                var isEmptyy = false
-                var documentProxy = self.textDocumentProxy as? UITextDocumentProxy
-                if let beforeContext = documentProxy?.documentContextBeforeInput {
-                    let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
-                    isEmptyy = self.characterIsWhitespace(previousCharacter)
-                }
-                else {
-                    isEmptyy = true
-                }
-                if(isEmptyy){
-                    typedKeys = "";
-                }else{
-                    let substringIndex = stringLength - 1
-                    typedKeys = typedKeys.substringToIndex(advance(typedKeys.startIndex, substringIndex))
-                }
-                
-            }else{
-                typedKeys = "";
-            }*/
-            typedKeys = "";
-        }
+        let textDocumentProxy = self.textDocumentProxy as UIKeyInput
+        textDocumentProxy.deleteBackward()
+        typedKeys = "";
+        
     }
     
     func shiftDown(sender: KeyboardKey) {
         //+20141229self.playKeySound()
+        
+        lastchar = "sd" //+20150129
         
         if self.shiftWasMultitapped {
             self.shiftWasMultitapped = false
@@ -719,16 +828,21 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func shiftDoubleTapped(sender: KeyboardKey) {
-        self.shiftWasMultitapped = true
         
-        switch self.shiftState {
-        case .Disabled:
-            self.shiftState = .Locked
-        case .Enabled:
-            self.shiftState = .Locked
-        case .Locked:
-            self.shiftState = .Disabled
+        if lastchar == "sd" {//+20150129
+            
+            self.shiftWasMultitapped = true
+            
+            switch self.shiftState {
+            case .Disabled:
+                self.shiftState = .Locked
+            case .Enabled:
+                self.shiftState = .Locked
+            case .Locked:
+                self.shiftState = .Disabled
+            }
         }
+        
     }
     
     // TODO: this should be uppercase, not lowercase
@@ -776,23 +890,23 @@ class KeyboardViewController: UIInputViewController {
         self.advanceToNextInputMode()
     }
     func setMode(mode: Int) {
-        for (pageIndex, page) in enumerate(self.keyboard.pages) {
-            for (rowIndex, row) in enumerate(page.rows) {
-                for (keyIndex, key) in enumerate(row) {
+        for (pageIndex, page) in self.keyboard.pages.enumerate() {
+            for (_, row) in page.rows.enumerate() {
+                for (_, key) in row.enumerate() {
                     if self.layout?.modelToView[key] != nil {
-                        var keyView = self.layout?.modelToView[key]
+                        let keyView = self.layout?.modelToView[key]
                         keyView?.hidden = (pageIndex != mode)
                     }
                 }
             }
         }
     }
-    
+    /*
     @IBAction func toggleSettings() {
         //+20141229self.playKeySound()
         
         if self.settingsView == nil {
-            if var aSettings = self.createSettings() {
+            if let aSettings = self.createSettings() {
                 
                 aSettings.darkMode = self.darkMode()
                 
@@ -800,7 +914,7 @@ class KeyboardViewController: UIInputViewController {
                 self.view.addSubview(aSettings)
                 self.settingsView = aSettings
                 
-                aSettings.setTranslatesAutoresizingMaskIntoConstraints(false)
+                aSettings.translatesAutoresizingMaskIntoConstraints = false
                 
                 let widthConstraint = NSLayoutConstraint(item: aSettings, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
                 let heightConstraint = NSLayoutConstraint(item: aSettings, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0)
@@ -811,6 +925,7 @@ class KeyboardViewController: UIInputViewController {
                 self.view.addConstraint(heightConstraint)
                 self.view.addConstraint(centerXConstraint)
                 self.view.addConstraint(centerYConstraint)
+                
             }
         }
         
@@ -821,10 +936,10 @@ class KeyboardViewController: UIInputViewController {
             settings.hidden = !hidden
             self.forwardingView.hidden = hidden
             self.forwardingView.userInteractionEnabled = !hidden
-            //self.bannerView?.hidden = hidden
+            self.bannerView?.hidden = hidden//+20150325
         }
     }
-    
+    */
     // TODO: make this work if cursor position is shifted
     func setCapsIfNeeded() {
         if self.shouldAutoCapitalize() {
@@ -854,7 +969,7 @@ class KeyboardViewController: UIInputViewController {
     
     func stringIsWhitespace(string: String?) -> Bool {
         if string != nil {
-            for char in string! {
+            for char in (string!).characters {
                 if !characterIsWhitespace(char) {
                     return false
                 }
@@ -950,7 +1065,7 @@ class KeyboardViewController: UIInputViewController {
     class var globalColors: GlobalColors.Type { get { return GlobalColors.self }}
     
     func keyPressed(key: Key) {
-        if let proxy = (self.textDocumentProxy as? UIKeyInput) {
+         let proxy = (self.textDocumentProxy as UIKeyInput)
             //+20141209
             let keyOutput = key.outputForCase(self.shiftState.uppercase())
             
@@ -969,7 +1084,8 @@ class KeyboardViewController: UIInputViewController {
                     
                 }
                 
-                let f2:NSString = varamozhi.getConvertedText(typedKeys)
+                let f2:String = varamozhi.getConvertedText(typedKeys) as String
+                
                 
                 proxy.insertText(f2)
                 
@@ -978,25 +1094,32 @@ class KeyboardViewController: UIInputViewController {
                 typedKeys = "";
                 
                 proxy.insertText(keyOutput)
+            
             }
             
-        }
+            lastchar = keyOutput //+20150129
+        
     }
     
     // a banner that sits in the empty space on top of the keyboard
     func createBanner() -> ExtraView? {
         // note that dark mode is not yet valid here, so we just put false for clarity
         //return ExtraView(globalColors: self.dynamicType.globalColors, darkMode: false, solidColorMode: self.solidColorMode())
-        return nil
+        //+20150325
+        if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+            return nil
+        } else{
+            return nil//PredictiveBanner(keyboard: self)
+        }
     }
     
     // a settings view that replaces the keyboard when the settings button is pressed
-    func createSettings() -> ExtraView? {
+    /*func createSettings() -> ExtraView? {
         // note that dark mode is not yet valid here, so we just put false for clarity
-        var settingsView = DefaultSettings(globalColors: self.dynamicType.globalColors, darkMode: false, solidColorMode: self.solidColorMode())
+        let settingsView = DefaultSettings(globalColors: self.dynamicType.globalColors, darkMode: false, solidColorMode: self.solidColorMode())
         settingsView.backButton?.addTarget(self, action: Selector("toggleSettings"), forControlEvents: UIControlEvents.TouchUpInside)
         return settingsView
-    }
+    }*/
 }
 
 //// does not work; drops CPU to 0% when run on device
@@ -1005,3 +1128,254 @@ class KeyboardViewController: UIInputViewController {
 //        return true
 //    }
 //}
+
+//+20150325
+/*
+class PredictiveBanner: ExtraView {
+    
+    //var label: UILabel = UILabel()
+    weak var keyboard: KeyboardViewController?
+    //+rollvar dataStore : WordsDAO!
+    var searchText :String?
+    
+    let scrolview : UIScrollView = UIScrollView()
+    
+    convenience init(keyboard: KeyboardViewController) {
+        self.init(globalColors: nil, darkMode: false, solidColorMode: false)
+        self.keyboard = keyboard
+        //+20150326
+        //+rolldataStore = WordsDAO()
+        dataStore.initWithDataBase()
+        
+        
+        self.addSubview(scrolview)
+        
+        self.updateAppearance()
+    }
+    
+    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool) {
+        super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
+        self.keyboard = nil
+        
+        
+        
+    }
+    //+20150428
+    deinit {
+        
+        dataStore.closeAll()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        scrolview.frame = self.frame
+        self.scrolview.center = self.center
+        
+        
+    }
+    
+    func handleBtnPress(sender: UIButton) {
+        if self.keyboard != nil {
+            
+            let kbd = self.keyboard!
+            if let textDocumentProxy = kbd.textDocumentProxy as? UIKeyInput {
+                
+                if searchText != nil {
+                    
+                    let countt = searchText!.utf16.count
+                    for var i = 0 ; i<countt ; i++ {
+                        
+                        textDocumentProxy.deleteBackward()
+                    }
+                }
+                
+                textDocumentProxy.insertText(sender.titleLabel!.text!)
+                //textDocumentProxy.insertText(" ")
+                
+                self.clearBanner()
+                self.updateAlternateKeyList(sender.titleLabel!.text!, Mode: 1)
+                
+                self.keyboard!.typedKeys = sender.titleLabel!.text! //+20150428
+                //self.updateAlternateKeyList(sender.titleLabel!.text!, Mode: 100)
+                
+            }
+            
+            
+        }
+    }
+    
+    func applyConstraints(currentView: UIButton, prevView: UIView?, nextView: UIView?, firstView: UIView) {
+        
+        
+        let parentView = self
+        
+        var leftConstraint: NSLayoutConstraint
+        var rightConstraint: NSLayoutConstraint
+        var topConstraint: NSLayoutConstraint
+        var bottomConstraint: NSLayoutConstraint
+        
+        // Constrain to top of parent view
+        topConstraint = NSLayoutConstraint(item: currentView, attribute: .Top, relatedBy: .Equal, toItem: parentView,
+            attribute: .Top, multiplier: 1.0, constant: 1)
+        
+        // Constraint to bottom of parent too
+        bottomConstraint = NSLayoutConstraint(item: currentView, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1.0, constant: -1)
+        
+        // If last, constrain to right
+        if nextView == nil {
+            rightConstraint = NSLayoutConstraint(item: currentView, attribute: .Right, relatedBy: .Equal, toItem: parentView, attribute: .Right, multiplier: 1.0, constant: -1)
+        } else {
+            rightConstraint = NSLayoutConstraint(item: currentView, attribute: .Right, relatedBy: .Equal, toItem: nextView, attribute: .Left, multiplier: 1.0, constant: -1)
+        }
+        
+        // If first, constrain to left of parent
+        if prevView == nil {
+            leftConstraint = NSLayoutConstraint(item: currentView, attribute: .Left, relatedBy: .Equal, toItem: parentView, attribute: .Left, multiplier: 1.0, constant: 1)
+        } else {
+            leftConstraint = NSLayoutConstraint(item: currentView, attribute: .Left, relatedBy: .Equal, toItem: prevView, attribute: .Right, multiplier: 1.0, constant: 1)
+            
+            let widthConstraint = NSLayoutConstraint(item: firstView, attribute: .Width, relatedBy: .Equal, toItem: currentView, attribute: .Width, multiplier: 1.0, constant: 0)
+            
+            widthConstraint.priority = 800
+            
+            addConstraint(widthConstraint)
+        }
+        
+        addConstraints([topConstraint, bottomConstraint, rightConstraint, leftConstraint])
+        
+    }
+    
+    func clearBanner(){
+        
+        let sv = scrolview.subviews
+        for v in sv {
+            v.removeFromSuperview()
+        }
+        scrolview.scrollRectToVisible(CGRectMake(0,0,1,1), animated: false)
+    }
+    func updateAlternateKeyList(str: String?, Mode mode: Int32) {
+        
+        clearBanner()
+        
+        searchText = str
+        
+        //dataStore.initWithDataBase()
+        let objects = dataStore.getAllMatchedWords(str, mode: mode)
+        //dataStore.closeAll()
+        
+        if objects.count == 0 {
+            
+            searchText = ""
+            return
+        }
+        
+        
+        
+        scrolview.backgroundColor = UIColor.clearColor()
+        
+        var i:CGFloat = 0
+        var wdth:CGFloat = 0
+        var preButton : UIButton?
+        for char in objects {
+            
+            let btn: UIButton = UIButton(type: UIButtonType.System)
+            
+            
+            let text:String = char as! String
+            var startx:CGFloat = 0
+            if preButton != nil {
+                
+                startx = preButton!.frame.origin.x + preButton!.frame.size.width + 1
+            }
+            
+            let sizee: CGSize = (text as NSString).sizeWithAttributes([NSFontAttributeName:UIFont.systemFontOfSize(16)]);
+            
+            
+            btn.frame = CGRectMake(startx, 1, sizee.width+10, scrolview.frame.size.height-2)
+            btn.setTitle(text, forState: .Normal)
+            
+            
+            //btn.frame = CGRectMake(0, 0, 20, 20)
+            //btn.setTitle(char as? String, forState: .Normal)
+            //btn.titleLabel!.sizeToFit()
+            //btn.sizeToFit()
+            btn.titleLabel?.font = UIFont.systemFontOfSize(16)
+            //btn.setTranslatesAutoresizingMaskIntoConstraints(false)
+            if darkMode {//+20150421
+                btn.backgroundColor = UIColor(red: CGFloat(12)/CGFloat(255), green: CGFloat(12)/CGFloat(255), blue: CGFloat(12)/CGFloat(255), alpha: 1)
+            }else{
+                btn.backgroundColor = UIColor(red: CGFloat(114)/CGFloat(255), green: CGFloat(148)/CGFloat(255), blue: CGFloat(114)/CGFloat(255), alpha: 1)
+            }
+            
+            btn.setTitleColor(UIColor(white: 1.0, alpha: 1.0), forState: .Normal)
+            
+            //btn.setContentHuggingPriority(1000, forAxis: .Horizontal)
+            //btn.setContentCompressionResistancePriority(1000, forAxis: .Horizontal)
+            
+            btn.addTarget(self, action: Selector("handleBtnPress:"), forControlEvents: .TouchUpInside)
+            
+            scrolview.addSubview(btn)
+            preButton = btn
+            wdth += preButton!.frame.size.width
+            wdth += 1
+            i++
+        }
+        
+        if wdth < self.frame.size.width {
+            
+            let firstBtn = scrolview.subviews[0] as! UIButton
+            let lastN = objects.count-1
+            var prevBtn: UIButton?
+            var nextBtn: UIButton?
+            
+            for (n, view) in scrolview.subviews.enumerate() {
+                let btn = view as! UIButton
+                
+                btn.frame = CGRectMake(0, 0, 20, 20)
+                btn.sizeToFit()
+                btn.translatesAutoresizingMaskIntoConstraints = false
+                btn.setContentHuggingPriority(1000, forAxis: .Horizontal)
+                btn.setContentCompressionResistancePriority(1000, forAxis: .Horizontal)
+                
+                if n == lastN {
+                    nextBtn = nil
+                } else {
+                    nextBtn = scrolview.subviews[n+1] as? UIButton
+                }
+                
+                if n == 0 {
+                    prevBtn = nil
+                } else {
+                    prevBtn = scrolview.subviews[n-1] as? UIButton
+                }
+                
+                applyConstraints(btn, prevView: prevBtn, nextView: nextBtn, firstView: firstBtn)
+            }
+            
+        }else{
+            
+            scrolview.contentSize = CGSizeMake(wdth, scrolview.frame.size.height)
+        }
+        
+        
+        
+        
+    }
+    func updateAppearance() {
+        
+        
+        //self.scrolview.sizeToFit()
+    }
+    
+    
+}
+*/

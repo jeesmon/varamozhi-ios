@@ -11,10 +11,9 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = ["Setup & Usage", "User Guide", "About"]//NSMutableArray(), "Preview"
+    var objects = ["Setup & Usage", "Transliteration", "User Guide", "About"]//NSMutableArray(), "Preview"
     
-
-    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
@@ -29,7 +28,7 @@ class MasterViewController: UITableViewController {
         
 
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.tableView.rowHeight = 100
         // Do any additional setup after loading the view, typically from a nib.
@@ -40,7 +39,7 @@ class MasterViewController: UITableViewController {
         */
         if let split = self.splitViewController {
             let controllers = split.viewControllers
-            self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
 
@@ -58,12 +57,14 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+              
         if segue.identifier == "showDetail" {
             
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 
                 
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.modeDisplay = indexPath.row
                 
                 if indexPath.row == 0 {
@@ -73,7 +74,7 @@ class MasterViewController: UITableViewController {
                     
                     
                     controller.filePath = object
-                }else if indexPath.row == 1 {
+                }else if indexPath.row == 2 {
                     
                     let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
                     
@@ -81,7 +82,7 @@ class MasterViewController: UITableViewController {
                     
                     controller.filePath = object
                 }
-                else if indexPath.row == 2 {
+                else if indexPath.row == 3 {
                     let object = NSBundle.mainBundle().pathForResource("info", ofType: "html")
                     
                     
@@ -93,18 +94,47 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
+                
+                
+                
                 let orientation = UIApplication.sharedApplication().statusBarOrientation
                 
                 if orientation.isPortrait {
                     
-                    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                    appDelegate.hideMaster()
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.hideMasterOnPortrait()
                     // Portrait
                 } else {
                     // Landscape
                 }
+                
+                
+                
             }
+        }else if segue.identifier == "showPreview" {
+            
+            
+            let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController2
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            
+            let orientation = UIApplication.sharedApplication().statusBarOrientation
+            
+            if orientation.isPortrait {
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.hideMasterOnPortrait()
+                // Portrait
+            } else {
+                // Landscape
+            }
+            
+        }else{
+            
+            
         }
+        
+    
     }
 
     // MARK: - Table View
@@ -118,7 +148,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        
+        var ident = "Cell"
+        if indexPath.row == 1 {
+            
+            ident = "CellEditor"
+            
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(ident, forIndexPath: indexPath) 
 
         let viewBg: UIView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 100))
         viewBg.backgroundColor = UIColor(red: 102/255, green: 172/255, blue: 96/255, alpha: 1)
@@ -131,6 +168,19 @@ class MasterViewController: UITableViewController {
         
         return cell
     }
+    /*override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        if indexPath.row == 1 {
+            self.performSegueWithIdentifier("showPreview", sender: self)
+            
+            
+        } else  {
+            self.performSegueWithIdentifier("showDetail", sender: self)
+        }
+      
+        
+    }*/
     /*
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
