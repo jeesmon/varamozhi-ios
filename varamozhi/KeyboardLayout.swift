@@ -141,9 +141,9 @@ class LayoutConstants: NSObject {
     }//+20141231
     
     // TODO: approxmiate, but close enough
-    class var lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.24 }}
+    class var lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.27 }}//.24+20151205
     class var lastRowLandscapeFirstTwoButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.19 }}
-    class var lastRowPortraitLastButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.24 }}
+    class var lastRowPortraitLastButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.27 }}//.24+20151205
     class var lastRowLandscapeLastButtonAreaWidthToKeyboardAreaWidth: CGFloat { get { return 0.19 }}
     class var micButtonPortraitWidthRatioToOtherSpecialButtons: CGFloat { get { return 0.765 }}
     
@@ -689,7 +689,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
                         
                         // bottom row with things like space, return, etc.
                     else {
-                        self.layoutSpecialKeysRow(row, modelToView: self.modelToView, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio, rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
+                        self.layoutSpecialKeysRow(row, modelToView: self.modelToView, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio, rightSideRatio: lastRowLeftSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
                     }
                     
                 }else{
@@ -706,7 +706,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
                         
                         // bottom row with things like space, return, etc.
                     else {
-                        self.layoutSpecialKeysRow(row, modelToView: self.modelToView, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio, rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
+                        self.layoutSpecialKeysRow(row, modelToView: self.modelToView, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio, rightSideRatio: lastRowLeftSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
                     }
                 }
                 
@@ -904,23 +904,58 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
         //+20141231assert(keysAfterSpace == 1, "invalid number of keys after space (only default 1 currently supported)")
         
         let hasButtonInMicButtonPosition = (keysBeforeSpace == 3)
+       
         
         var leftSideAreaWidth = frame.width * leftSideRatio
-        let rightSideAreaWidth = frame.width * rightSideRatio
+        var rightSideAreaWidth = frame.width * rightSideRatio
         var leftButtonWidth = (leftSideAreaWidth - (gapWidth * CGFloat(2 - 1))) / CGFloat(2)
         leftButtonWidth = rounded(leftButtonWidth)
-        var rightButtonWidth = (rightSideAreaWidth - (gapWidth * CGFloat(keysAfterSpace - 1))) / CGFloat(keysAfterSpace)
+        var rightButtonWidth = rounded(rightSideAreaWidth) //(rightSideAreaWidth - (gapWidth * CGFloat(keysAfterSpace - 1))) // / CGFloat(keysAfterSpace)
+        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        if isPad {
+            rightButtonWidth = (rightSideAreaWidth - (gapWidth * CGFloat(2 - 1))) / CGFloat(2)
+        }
+        
         rightButtonWidth = rounded(rightButtonWidth)
         
         let micButtonWidth = (isLandscape ? leftButtonWidth : leftButtonWidth * micButtonRatio)
-        
-        // special case for mic button
-        if hasButtonInMicButtonPosition {
-            leftSideAreaWidth = leftSideAreaWidth + gapWidth + micButtonWidth
+        var _ButtonWidth = (isLandscape ? rightButtonWidth * 0.3 : rightButtonWidth * 0.3)//+20151205
+        _ButtonWidth = rounded(_ButtonWidth)
+        if isPad {
+            _ButtonWidth = rightButtonWidth
+        } else {
+            
         }
         
         var spaceWidth = frame.width - leftSideAreaWidth - rightSideAreaWidth - gapWidth * CGFloat(2)
         spaceWidth = rounded(spaceWidth)
+        
+        var returnWidth = frame.width - leftSideAreaWidth - spaceWidth - gapWidth * CGFloat(2)
+        
+        // special case for mic button
+        if hasButtonInMicButtonPosition {
+            leftSideAreaWidth = leftSideAreaWidth + gapWidth + micButtonWidth
+            rightSideAreaWidth = rightSideAreaWidth + gapWidth + micButtonWidth
+            
+            returnWidth = rightButtonWidth * 0.7 //frame.width - leftSideAreaWidth - spaceWidth - micButtonWidth - gapWidth * CGFloat(2)
+            if isPad {
+                returnWidth = rightButtonWidth
+            }
+        }
+        
+        
+        
+        
+        if hasButtonInMicButtonPosition {
+            if isPad {
+                spaceWidth = frame.width - micButtonWidth * 4 - leftButtonWidth - returnWidth - gapWidth * CGFloat(6)
+                spaceWidth = rounded(spaceWidth)
+            } else {
+                spaceWidth = frame.width - micButtonWidth * 3 - leftButtonWidth - returnWidth - gapWidth * CGFloat(4)
+                spaceWidth = rounded(spaceWidth)
+            }
+        }
+   
         
         var currentOrigin = frame.origin.x
         var beforeSpace: Bool = true
@@ -932,7 +967,7 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
                     beforeSpace = false
                 }
                 else if beforeSpace {
-                    if hasButtonInMicButtonPosition && k == 2 { //mic button position
+                    if hasButtonInMicButtonPosition && (k == 2 || k == 1){ //mic button position
                         view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, micButtonWidth, frame.height)
                         currentOrigin += (micButtonWidth + gapWidth)
                     }
@@ -942,8 +977,25 @@ class KeyboardLayout: NSObject, KeyboardKeyProtocol {
                     }
                 }
                 else {
-                    view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, rightButtonWidth, frame.height)
-                    currentOrigin += (rightButtonWidth + gapWidth)
+                    if isPad == true {
+                        if hasButtonInMicButtonPosition && (k == 4 || k == 6) {//+20151205
+                            view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, micButtonWidth, frame.height)
+                            currentOrigin += (micButtonWidth + gapWidth)
+                        } else {
+                            view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, returnWidth, frame.height)
+                            currentOrigin += (returnWidth + gapWidth)
+                        }
+                    } else {
+                        if hasButtonInMicButtonPosition && row.count == 6 && k == 4 {//+20151205
+                            view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, _ButtonWidth, frame.height)
+                            currentOrigin += (_ButtonWidth + gapWidth)
+                        } else {
+                            view.frame = CGRectMake(rounded(currentOrigin), frame.origin.y, returnWidth, frame.height)
+                            currentOrigin += (returnWidth + gapWidth)
+                        }
+                    }
+                    
+                    
                 }
             }
             else {

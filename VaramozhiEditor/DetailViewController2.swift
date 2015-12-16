@@ -290,7 +290,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             */
             
             if showsKeyboard {
-                print("show kb \(originDelta)");
+                //("show kb \(originDelta)");
                 recttyp.size.height = 30.0 //+= (originDelta / 2.0)
                 rectdisplay.size.height += (originDelta / 2.0)
                 rectview.size.height += originDelta
@@ -299,7 +299,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
                 
             }else{
                 
-                print("hide kb");
+                //("hide kb");
                 let height: CGFloat = UIScreen.mainScreen().bounds.size.height - self.navigationController!.navigationBar.frame.size.height
                 
                 

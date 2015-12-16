@@ -99,6 +99,10 @@
 		03BA721E1A72307A005B252D /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA72031A72307A005B252D /* twitter.png */; };
 		03BA721F1A72307A005B252D /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BA72041A72307A005B252D /* twitter@2x.png */; };
 		03C56C7D1AE55121006602D3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C56C7C1AE55121006602D3 /* libsqlite3.0.dylib */; };
+		8F7F51611C1901FD00B45E66 /* help.html in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F51601C1901FD00B45E66 /* help.html */; };
+		8F7F51651C19034D00B45E66 /* issuempa.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F51621C19034D00B45E66 /* issuempa.png */; };
+		8F7F51661C19034D00B45E66 /* issuevva.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F51631C19034D00B45E66 /* issuevva.png */; };
+		8F7F51671C19034D00B45E66 /* issueyya.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7F51641C19034D00B45E66 /* issueyya.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +239,10 @@
 		03BA72031A72307A005B252D /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		03BA72041A72307A005B252D /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 		03C56C7C1AE55121006602D3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		8F7F51601C1901FD00B45E66 /* help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = help.html; sourceTree = "<group>"; };
+		8F7F51621C19034D00B45E66 /* issuempa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issuempa.png; sourceTree = "<group>"; };
+		8F7F51631C19034D00B45E66 /* issuevva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issuevva.png; sourceTree = "<group>"; };
+		8F7F51641C19034D00B45E66 /* issueyya.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issueyya.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +432,7 @@
 				03556F1E1A529CD30070187D /* installation.html */,
 				0355E0E51A4DC27B0054198B /* info.html */,
 				0388DD511A49846D00E413A5 /* Info.plist */,
+				8F7F51601C1901FD00B45E66 /* help.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -448,6 +457,9 @@
 		0388DD741A49A0C300E413A5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8F7F51621C19034D00B45E66 /* issuempa.png */,
+				8F7F51631C19034D00B45E66 /* issuevva.png */,
+				8F7F51641C19034D00B45E66 /* issueyya.png */,
 				039CBCB81A7913C100290593 /* back.png */,
 				039CBCB91A7913C100290593 /* back@2x.png */,
 				039CBCB41A78AFB600290593 /* contract.png */,
@@ -622,14 +634,18 @@
 				03BA720B1A72307A005B252D /* facebook_gray.png in Resources */,
 				03BA72071A72307A005B252D /* envelope_gray.png in Resources */,
 				03BA721E1A72307A005B252D /* twitter.png in Resources */,
+				8F7F51661C19034D00B45E66 /* issuevva.png in Resources */,
 				0355E0E41A4D6B1C0054198B /* settingsadd.png in Resources */,
 				03BA72131A72307A005B252D /* mail.png in Resources */,
 				03BA721F1A72307A005B252D /* twitter@2x.png in Resources */,
 				03BA72091A72307A005B252D /* envelope.png in Resources */,
 				03BA721C1A72307A005B252D /* twitter_gray.png in Resources */,
+				8F7F51651C19034D00B45E66 /* issuempa.png in Resources */,
 				039CBCBB1A7913C100290593 /* back@2x.png in Resources */,
+				8F7F51671C19034D00B45E66 /* issueyya.png in Resources */,
 				03BA72141A72307A005B252D /* mail@2x.png in Resources */,
 				03BA72181A72307A005B252D /* question_mark@2x.png in Resources */,
+				8F7F51611C1901FD00B45E66 /* help.html in Resources */,
 				03BA72111A72307A005B252D /* mail_gray.png in Resources */,
 				039CBCB61A78AFB600290593 /* contract.png in Resources */,
 				03BA720C1A72307A005B252D /* facebook_gray@2x.png in Resources */,

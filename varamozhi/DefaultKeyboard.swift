@@ -80,11 +80,21 @@ func defaultKeyboard() -> Keyboard {
     //let settings = Key(.Settings)
     //defaultKeyboard.addKey(settings, row: 3, page: 0)
     
+    let tildeModel = Key(.SpecialCharacter)
+    tildeModel.setLetter("~")
+    defaultKeyboard.addKey(tildeModel, row: 3, page: 0)
+
+    
     let space = Key(.Space)
     space.uppercaseKeyCap = "space"
     space.uppercaseOutput = " "
     space.lowercaseOutput = " "
     defaultKeyboard.addKey(space, row: 3, page: 0)
+    
+    
+    let usModel = Key(.SpecialCharacter)
+    usModel.setLetter("_")
+    defaultKeyboard.addKey(usModel, row: 3, page: 0)
     
     if isPad {
         

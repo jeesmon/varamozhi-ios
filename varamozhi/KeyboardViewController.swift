@@ -848,10 +848,10 @@ class KeyboardViewController: UIInputViewController {
     // TODO: this should be uppercase, not lowercase
     func updateKeyCaps(lowercase: Bool) {
         if self.layout != nil {
-            let actualUppercase = true// (NSUserDefaults.standardUserDefaults().boolForKey(kSmallLowercase) ? !lowercase : true)
+           // let actualUppercase = true// (NSUserDefaults.standardUserDefaults().boolForKey(kSmallLowercase) ? !lowercase : true)
             
             for (model, key) in self.layout!.modelToView {
-                key.text = model.keyCapForCase(actualUppercase)
+                key.text = model.keyCapForCase(!lowercase)//+20151215
                 
                 if model.type == Key.KeyType.Shift {
                     switch self.shiftState {

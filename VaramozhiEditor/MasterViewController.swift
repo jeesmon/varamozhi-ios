@@ -76,7 +76,7 @@ class MasterViewController: UITableViewController {
                     controller.filePath = object
                 }else if indexPath.row == 2 {
                     
-                    let object = NSBundle.mainBundle().pathForResource("lipi", ofType: "png")
+                    let object = NSBundle.mainBundle().pathForResource("help", ofType: "html")
                     
                     
                     

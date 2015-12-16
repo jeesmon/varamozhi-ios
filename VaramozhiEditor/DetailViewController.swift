@@ -32,10 +32,13 @@ class DetailViewController: UIViewController , UIWebViewDelegate {
             
         }else if modeDisplay == 1 {
             
-            self.title = "User Guide"
+            self.title = "Transliteration"
             
-        }else{
+        }else if modeDisplay == 2 {
         
+            self.title = "User Guide"
+        }else{
+            
             self.title = "About"
         }
         
