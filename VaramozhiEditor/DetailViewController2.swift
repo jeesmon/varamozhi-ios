@@ -45,48 +45,48 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
         //if (nextPage && tagFirst == kActionFB) || tagFirst == 0 || (!nextPage && tagFirst == kActionClear) {
         
-        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        let isPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         
-        items.append(UIBarButtonItem(image: UIImage(named: "remove.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("clearscreen:") ))
-        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
+        items.append(UIBarButtonItem(image: UIImage(named: "remove.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.clearscreen(_:)) ))
+        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil))
         
-        items.append(UIBarButtonItem(image: UIImage(named: "copy.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("copyme:") ))
-        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
+        items.append(UIBarButtonItem(image: UIImage(named: "copy.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.copyme(_:)) ))
+        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil))
         
         
         
-        items.append(UIBarButtonItem(image: UIImage(named: "mail.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("mailme:") ))
-        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
+        items.append(UIBarButtonItem(image: UIImage(named: "mail.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.mailme(_:)) ))
+        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil))
         //let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
         if !isPad {
             
-            items.append(UIBarButtonItem(image: UIImage(named: "envelope.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("smsme:") ))
-            items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
+            items.append(UIBarButtonItem(image: UIImage(named: "envelope.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.smsme(_:)) ))
+            items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil))
         }
         
         var imgnamefb = "facebook.png"
-        if !SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook)
+        if !SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook)
         {
             imgnamefb = "facebook_gray.png"
         }
         var imgnametw = "twitter.png"
-        if !SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter)
+        if !SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter)
         {
             imgnametw = "twitter_gray.png"
         }
         
-        items.append(UIBarButtonItem(image: UIImage(named: imgnamefb), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("faceme:") ))
-        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
+        items.append(UIBarButtonItem(image: UIImage(named: imgnamefb), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.faceme(_:)) ))
+        items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil))
         
-        items.append(UIBarButtonItem(image: UIImage(named: imgnametw), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("tweetme:") ))
+        items.append(UIBarButtonItem(image: UIImage(named: imgnametw), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.tweetme(_:)) ))
         //items.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil))
         
         self.toolBarActions?.items = items
         
     }
     
-    func faceme(sender: UIBarButtonItem) {
-        if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook))
+    @objc func faceme(_ sender: UIBarButtonItem) {
+        if(SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook))
         {
             let SocialMedia :SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             
@@ -103,15 +103,15 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
                 
                 }*/
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
-            self.presentViewController(SocialMedia, animated: true, completion: nil)
+            self.present(SocialMedia, animated: true, completion: nil)
             SocialMedia.setInitialText(self.textViewDisplay.text)
         }
     }
-    func tweetme(sender: UIBarButtonItem) {
+    @objc func tweetme(_ sender: UIBarButtonItem) {
         
-        if(SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter))
+        if(SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter))
         {
             let SocialMedia :SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
@@ -121,13 +121,13 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
                 
                 //var getResult = result as SLComposeViewControllerResult;
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
-            self.presentViewController(SocialMedia, animated: true, completion: nil)
+            self.present(SocialMedia, animated: true, completion: nil)
             SocialMedia.setInitialText(self.textViewDisplay.text)
         }
     }
-    func smsme(sender: UIBarButtonItem) {
+    @objc func smsme(_ sender: UIBarButtonItem) {
         
         if(MFMessageComposeViewController.canSendText()){
             
@@ -135,42 +135,42 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             messageComposeVC.messageComposeDelegate = self
             messageComposeVC.title = "Shared from Varamozhi"
             messageComposeVC.body = self.textViewDisplay.text
-            self.presentViewController(messageComposeVC, animated: true, completion: nil)
+            self.present(messageComposeVC, animated: true, completion: nil)
             
         }else{
-            let alert = UIAlertController(title: "Alert", message: "Your device cannot send emails", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Alert", message: "Your device cannot send emails", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             
         }
     }
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         
-        controller.dismissViewControllerAnimated(true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)
     }
-    func clearscreen(sender: UIBarButtonItem) {
+    @objc func clearscreen(_ sender: UIBarButtonItem) {
         
         self.textViewDisplay.text = nil
         self.textViewType.text = nil
     }
     
-    func copyme(sender: UIBarButtonItem) {
+    @objc func copyme(_ sender: UIBarButtonItem) {
         
-        let pasteboard: UIPasteboard = UIPasteboard.generalPasteboard()
+        let pasteboard: UIPasteboard = UIPasteboard.general
         
         pasteboard.string = self.textViewDisplay.text;
         if self.textViewDisplay.text.characters.count > 0 {
-            varamozhi.makeToast("Text copied. Paste anywhere.", onView: self.view)
+            varamozhi.makeToast("Text copied. Paste anywhere.", on: self.view)
         }
     }
-    func mailme(sender: UIBarButtonItem) {
+    @objc func mailme(_ sender: UIBarButtonItem) {
         
         if(MFMailComposeViewController.canSendMail()){
             
             let myMail: MFMailComposeViewController = MFMailComposeViewController()
             myMail.mailComposeDelegate = self
             myMail.setMessageBody(self.textViewDisplay.text, isHTML: true)
-            self.presentViewController(myMail, animated: true, completion: nil)
+            self.present(myMail, animated: true, completion: nil)
             
         }else{
             /*var alert = UIAlertController(title: "Alert", message: "Your device cannot send emails", preferredStyle: UIAlertControllerStyle.Alert)
@@ -179,42 +179,42 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             */
             
             let mail = ""
-            let mailURL: NSURL =  NSURL(string: "mailto:\(mail)")!
-            UIApplication.sharedApplication().openURL(mailURL)
+            let mailURL: URL =  URL(string: "mailto:\(mail)")!
+            UIApplication.shared.openURL(mailURL)
             
         }
     }
-    func mailComposeController(controller: MFMailComposeViewController,
-        didFinishWithResult result: MFMailComposeResult,
-        error: NSError?){
+    func mailComposeController(_ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?){
             
             switch(result.rawValue){
-            case MFMailComposeResultSent.rawValue:
+            case MFMailComposeResult.sent.rawValue:
                 print("Email sent")
                 
             default:
                 print("Whoops")
             }
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
     }
     // MARK: Convenience
     
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         var inputStr: NSMutableString
         
         if range.length == 0 {
             
             inputStr = NSMutableString(string: textView.text)
-            inputStr.insertString(text, atIndex: range.location)
+            inputStr.insert(text, at: range.location)
             
         }else{
             
             inputStr = NSMutableString(string: textView.text)
-            inputStr.replaceCharactersInRange(range, withString: text)
+            inputStr.replaceCharacters(in: range, with: text)
         }
         
         let f2:String = varamozhi.getConvertedText(inputStr as String) as String
@@ -225,7 +225,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
         if self.textViewDisplay.contentSize.height > self.textViewDisplay.frame.size.height
         {
-            let offset: CGPoint = CGPointMake(0, self.textViewDisplay.contentSize.height - self.textViewDisplay.frame.size.height);
+            let offset: CGPoint = CGPoint(x: 0, y: self.textViewDisplay.contentSize.height - self.textViewDisplay.frame.size.height);
             self.textViewDisplay.setContentOffset(offset, animated: false)
         }
         
@@ -238,26 +238,26 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         return true
     }
     
-    func keyboardWillChangeFrameWithNotification(notification: NSNotification, showsKeyboard: Bool) {
+    func keyboardWillChangeFrameWithNotification(_ notification: Notification, showsKeyboard: Bool) {
         
        
         
         let userInfo = notification.userInfo!
         
         
-        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let animationDuration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
         
         
         // Convert the keyboard frame from screen to view coordinates.
         
-        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         
-        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
-        let keyboardViewBeginFrame = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
+        let keyboardViewBeginFrame = view.convert(keyboardScreenBeginFrame, from: view.window)
         
-        let keyboardViewEndFrame = view.convertRect(keyboardScreenEndFrame, fromView: view.window)
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         
         let originDelta = keyboardViewEndFrame.origin.y - keyboardViewBeginFrame.origin.y
         
@@ -276,7 +276,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         //println("self.textViewDisplay.frame1 = \(self.textViewDisplay.frame.size.height)")
         //println("self.toolBarActions.frame1 = \(self.toolBarActions.frame.origin.y)")
         
-        UIView.animateWithDuration(animationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0, options: .beginFromCurrentState, animations: {
             
             var recttyp: CGRect = self.textViewType.frame
             var rectdisplay: CGRect = self.textViewDisplay.frame
@@ -300,7 +300,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             }else{
                 
                 //("hide kb");
-                let height: CGFloat = UIScreen.mainScreen().bounds.size.height - self.navigationController!.navigationBar.frame.size.height
+                let height: CGFloat = UIScreen.main.bounds.size.height - self.navigationController!.navigationBar.frame.size.height
                 
                 
                 recttyp.size.height = (height - self.toolBarActions.frame.size.height) / 2.0
@@ -348,7 +348,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     
     
     
-    func handleKeyboardWillShowNotification(notification: NSNotification) {
+    @objc func handleKeyboardWillShowNotification(_ notification: Notification) {
         
         keyboardWillChangeFrameWithNotification(notification, showsKeyboard: true)
         
@@ -356,7 +356,7 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     
     
     
-    func handleKeyboardWillHideNotification(notification: NSNotification) {
+    @objc func handleKeyboardWillHideNotification(_ notification: Notification) {
         
         keyboardWillChangeFrameWithNotification(notification, showsKeyboard: false)
         
@@ -364,30 +364,30 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
     
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
         
         // Listen for changes to keyboard visibility so that we can adjust the text view accordingly.
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let notificationCenter = NotificationCenter.default
         
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(DetailViewController2.handleKeyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(DetailViewController2.handleKeyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
        
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
         
         let delay = 0.05 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
         
-        dispatch_after(time, dispatch_get_main_queue(), {
+        DispatchQueue.main.asyncAfter(deadline: time, execute: {
             self.setFocus()
         })
     }
@@ -397,25 +397,25 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         
         
         super.viewDidDisappear(animated)
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         
         
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         
-        NSUserDefaults.standardUserDefaults().setValue(self.textViewType.text, forKey: "typedtext")
+        UserDefaults.standard.setValue(self.textViewType.text, forKey: "typedtext")
     }
     
     override func viewDidLoad() {
@@ -425,25 +425,25 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
         
         
         super.viewDidLoad()
-        self.edgesForExtendedLayout = UIRectEdge.None
+        self.edgesForExtendedLayout = UIRectEdge()
         
-        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        let titleDict: [NSAttributedStringKey: AnyObject] = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = titleDict
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         
         self.toggleToolBarItems(NextPage: false)
         
         
-        let orientation = UIApplication.sharedApplication().statusBarOrientation
+        let orientation = UIApplication.shared.statusBarOrientation
         
         if orientation.isLandscape {
-            let btnExp = UIBarButtonItem(image: UIImage(named: "expand.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("expand:"))
+            let btnExp = UIBarButtonItem(image: UIImage(named: "expand.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.expand(_:)))
             self.navigationItem.leftBarButtonItem = btnExp
         }
         
     
-        self.textViewType.text = NSUserDefaults.standardUserDefaults().valueForKey("typedtext") as? String
+        self.textViewType.text = UserDefaults.standard.value(forKey: "typedtext") as? String
         
         let f2:String = varamozhi.getConvertedText(self.textViewType.text) as String
         
@@ -475,27 +475,27 @@ class DetailViewController2: UIViewController, UITextViewDelegate, MFMailCompose
             }
         })
     }*/
-    func expand(sender: AnyObject){
+    @objc func expand(_ sender: AnyObject){
         
         
-       let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+       let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.hideMaster()
         
-        let btnCon = UIBarButtonItem(image: UIImage(named: "contract.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("contract:"))
+        let btnCon = UIBarButtonItem(image: UIImage(named: "contract.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.contract(_:)))
         self.navigationItem.leftBarButtonItem = btnCon
         
         
     }
-    func contract(sender: AnyObject){
+    @objc func contract(_ sender: AnyObject){
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.showMaster()
         
-        let orientation = UIApplication.sharedApplication().statusBarOrientation
+        let orientation = UIApplication.shared.statusBarOrientation
         
         if orientation.isLandscape {
             
-            let btnExp = UIBarButtonItem(image: UIImage(named: "expand.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("expand:"))
+            let btnExp = UIBarButtonItem(image: UIImage(named: "expand.png"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController2.expand(_:)))
             self.navigationItem.leftBarButtonItem = btnExp
 
         }else{

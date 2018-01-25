@@ -13,14 +13,14 @@ let metrics: [String:Float] = [
     "topBanner": 30
 ]
 
-func metric(name: String) -> CGFloat {
+func metric(_ name: String) -> CGFloat {
     
     //+20141231
-    if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+    if UserDefaults.standard.bool(forKey: kDisablePopupKeys) {
         return 0
     }else{
         //+20150325
-        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+        if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad {
             return CGFloat(metrics[name]!)
         } else {
             return CGFloat(metrics[name]!) * 1.3
@@ -41,8 +41,8 @@ let kDisablePopupKeys = "kDisablePopupKeys"
 
 class KeyboardViewController: UIInputViewController {
     
-    let backspaceDelay: NSTimeInterval = 0.5
-    let backspaceRepeat: NSTimeInterval = 0.07
+    let backspaceDelay: TimeInterval = 0.5
+    let backspaceRepeat: TimeInterval = 0.07
     
     var keyboard: Keyboard!
     var forwardingView: ForwardingView!
@@ -70,29 +70,29 @@ class KeyboardViewController: UIInputViewController {
             return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
         }
     }
-    var backspaceDelayTimer: NSTimer?
-    var backspaceRepeatTimer: NSTimer?
+    var backspaceDelayTimer: Timer?
+    var backspaceRepeatTimer: Timer?
     
     enum AutoPeriodState {
-        case NoSpace
-        case FirstSpace
+        case noSpace
+        case firstSpace
     }
     
-    var autoPeriodState: AutoPeriodState = .NoSpace
+    var autoPeriodState: AutoPeriodState = .noSpace
     var lastCharCountInBeforeContext: Int = 0
     
     enum ShiftState {
-        case Disabled
-        case Enabled
-        case Locked
+        case disabled
+        case enabled
+        case locked
         
         func uppercase() -> Bool {
             switch self {
-            case Disabled:
+            case .disabled:
                 return false
-            case Enabled:
+            case .enabled:
                 return true
-            case Locked:
+            case .locked:
                 return true
             }
         }
@@ -100,11 +100,11 @@ class KeyboardViewController: UIInputViewController {
     var shiftState: ShiftState {
         didSet {
             switch shiftState {
-            case .Disabled:
+            case .disabled:
                 self.updateKeyCaps(true)
-            case .Enabled:
+            case .enabled:
                 self.updateKeyCaps(false)
-            case .Locked:
+            case .locked:
                 self.updateKeyCaps(false)
             }
         }
@@ -131,30 +131,29 @@ class KeyboardViewController: UIInputViewController {
         self.init(nibName: nil, bundle: nil)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        NSUserDefaults.standardUserDefaults().registerDefaults([
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        UserDefaults.standard.register(defaults: [
             //kAutoCapitalization: false, //+20141218
             //kKeyPadMalayalam: false,
             kPeriodShortcut: true,
             kKeyboardClicks: true,
             kDisablePopupKeys: false
         ])
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDisablePopupKeys)
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kPeriodShortcut)
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kKeyboardClicks)
+        UserDefaults.standard.set(true, forKey: kDisablePopupKeys)
+        UserDefaults.standard.set(true, forKey: kPeriodShortcut)
+        UserDefaults.standard.set(false, forKey: kKeyboardClicks)
         
         
         self.keyboard = defaultKeyboard()
         
-        self.shiftState = .Disabled
+        self.shiftState = .disabled
         self.currentMode = 0
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.forwardingView = ForwardingView(frame: CGRectZero)
+        self.forwardingView = ForwardingView(frame: CGRect.zero)
         self.view.addSubview(self.forwardingView)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("defaultsChanged:"), name: NSUserDefaultsDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardViewController.defaultsChanged(_:)), name: UserDefaults.didChangeNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -165,11 +164,11 @@ class KeyboardViewController: UIInputViewController {
         backspaceDelayTimer?.invalidate()
         backspaceRepeatTimer?.invalidate()
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func defaultsChanged(notification: NSNotification) {
-        _ = notification.object as! NSUserDefaults
+    @objc func defaultsChanged(_ notification: Notification) {
+        _ = notification.object as! UserDefaults
         self.updateKeyCaps(!self.shiftState.uppercase())
     }
     
@@ -180,12 +179,12 @@ class KeyboardViewController: UIInputViewController {
             let kludge = UIView()
             self.view.addSubview(kludge)
             kludge.translatesAutoresizingMaskIntoConstraints = false
-            kludge.hidden = true
+            kludge.isHidden = true
             
-            let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let b = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let c = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-            let d = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+            let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+            let b = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+            let c = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+            let d = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
             self.view.addConstraints([a, b, c, d])
             
             self.kludge = kludge
@@ -214,13 +213,13 @@ class KeyboardViewController: UIInputViewController {
     var constraintsAdded: Bool = false
     func setupLayout() {
         if !constraintsAdded {
-            self.layout = self.dynamicType.layoutClass.init(model: self.keyboard, superview: self.forwardingView, layoutConstants: self.dynamicType.layoutConstants, globalColors: self.dynamicType.globalColors, darkMode: self.darkMode(), solidColorMode: self.solidColorMode())
+            self.layout = type(of: self).layoutClass.init(model: self.keyboard, superview: self.forwardingView, layoutConstants: type(of: self).layoutConstants, globalColors: type(of: self).globalColors, darkMode: self.darkMode(), solidColorMode: self.solidColorMode())
             
             self.layout?.initialize()
             self.setupKeys()
             self.setMode(0)
             
-            //self.setupKludge()
+            self.setupKludge()
             
             self.updateKeyCaps(!self.shiftState.uppercase())
             self.setCapsIfNeeded()
@@ -236,7 +235,7 @@ class KeyboardViewController: UIInputViewController {
     func darkMode() -> Bool {
         let darkMode = { () -> Bool in
             let proxy = self.textDocumentProxy
-            return proxy.keyboardAppearance == UIKeyboardAppearance.Dark
+            return proxy.keyboardAppearance == UIKeyboardAppearance.dark
         }()
         
         return darkMode
@@ -251,13 +250,12 @@ class KeyboardViewController: UIInputViewController {
     
     var lastLayoutBounds: CGRect?
     override func viewDidLayoutSubviews() {
-        if view.bounds == CGRectZero {
+        if view.bounds == CGRect.zero {
             return
         }
         
         self.setupLayout()
-        
-        let orientationSavvyBounds = CGRectMake(0, 0, self.view.bounds.width, self.heightForOrientation(false))
+        let orientationSavvyBounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.heightForOrientation(false))
         
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             // do nothing
@@ -268,9 +266,8 @@ class KeyboardViewController: UIInputViewController {
             self.lastLayoutBounds = orientationSavvyBounds
         }
         
-        self.bannerView?.frame = CGRectMake(0, 0, self.view.bounds.width, metric("topBanner"))//+20150325
-        
-        let newOrigin = CGPointMake(0, self.view.bounds.height - self.forwardingView.bounds.height)
+        self.bannerView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: metric("topBanner"))//+20150325
+        let newOrigin = CGPoint(x: 0, y: self.view.bounds.height - self.forwardingView.bounds.height )
         self.forwardingView.frame.origin = newOrigin
     }
     
@@ -279,7 +276,7 @@ class KeyboardViewController: UIInputViewController {
         
         //+20150325
         if let aBanner = self.createBanner() {
-            aBanner.hidden = true
+            aBanner.isHidden = true
             self.view.insertSubview(aBanner, belowSubview: self.forwardingView)
             self.bannerView = aBanner
         }
@@ -288,8 +285,8 @@ class KeyboardViewController: UIInputViewController {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.bannerView?.hidden = false //+20150325
+    override func viewWillAppear(_ animated: Bool) {
+        self.bannerView?.isHidden = false //+20150325
         self.keyboardHeight = self.heightForOrientation(false)
         
     }
@@ -298,9 +295,9 @@ class KeyboardViewController: UIInputViewController {
         self.keyboardHeight = self.heightForOrientation(toInterfaceOrientation, withTopBanner: true)
     }
     **/
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator){
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator){
             
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        super.viewWillTransition(to: size, with: coordinator)
         
         self.forwardingView.resetTrackedViews()
         //self.shiftStartingState = nil
@@ -310,7 +307,7 @@ class KeyboardViewController: UIInputViewController {
         
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         self.forwardingView.resetTrackedViews()
         //self.shiftStartingState = nil
         self.shiftWasMultitapped = false
@@ -320,7 +317,7 @@ class KeyboardViewController: UIInputViewController {
     
     //+20141217
     // Workaround:
-    private struct SubStruct { static var staticVariable: Bool = false }
+    fileprivate struct SubStruct { static var staticVariable: Bool = false }
     
     class var workaroundClassVariable: Bool
     {
@@ -331,11 +328,12 @@ class KeyboardViewController: UIInputViewController {
         
         return workaroundClassVariable
     }
-    func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
-        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+    func heightForOrientation(_ orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
+
+        let isPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         
         //TODO: hardcoded stuff
-        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        let actualScreenWidth = (UIScreen.main.nativeBounds.size.width / UIScreen.main.nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
         let topBannerHeight = (withTopBanner ? metric("topBanner") : 0)
@@ -345,11 +343,11 @@ class KeyboardViewController: UIInputViewController {
         
     }
     
-    func heightForOrientation(withTopBanner: Bool) -> CGFloat {
-        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+    func heightForOrientation(_ withTopBanner: Bool) -> CGFloat {
+        let isPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         
         //+20151123
-        let screenSize = UIScreen.mainScreen().bounds.size
+        let screenSize = UIScreen.main.bounds.size
         let screenH = screenSize.height
         let screenW = screenSize.width
         let isLandscape =  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
@@ -357,7 +355,7 @@ class KeyboardViewController: UIInputViewController {
         
         
         //TODO: hardcoded stuff
-        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        let actualScreenWidth = (UIScreen.main.nativeBounds.size.width / UIScreen.main.nativeScale)
         //let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(!isLandscape && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
@@ -390,49 +388,49 @@ class KeyboardViewController: UIInputViewController {
                 for key in rowKeys {
                     let keyView = self.layout!.viewForKey(key)! // TODO: check
                     
-                    keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)//+201412
+                    keyView.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)//+201412
                     
                     switch key.type {
-                    case Key.KeyType.KeyboardChange:
-                        keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
-                    case Key.KeyType.Backspace:
-                        let cancelEvents: UIControlEvents = [UIControlEvents.TouchUpInside, UIControlEvents.TouchUpInside, UIControlEvents.TouchDragExit, UIControlEvents.TouchUpOutside, UIControlEvents.TouchCancel, UIControlEvents.TouchDragOutside]
+                    case Key.KeyType.keyboardChange:
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.advanceTapped(_:)), for: .touchUpInside)
+                    case Key.KeyType.backspace:
+                        let cancelEvents: UIControlEvents = [UIControlEvents.touchUpInside, UIControlEvents.touchUpInside, UIControlEvents.touchDragExit, UIControlEvents.touchUpOutside, UIControlEvents.touchCancel, UIControlEvents.touchDragOutside]
                         
-                        keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
-                        keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
-                    case Key.KeyType.Shift:
-                        keyView.addTarget(self, action: Selector("shiftDown:"), forControlEvents: .TouchUpInside)
-                        keyView.addTarget(self, action: Selector("shiftDoubleTapped:"), forControlEvents: .TouchDownRepeat)
-                    case Key.KeyType.ModeChange:
-                        keyView.addTarget(self, action: Selector("modeChangeTapped:"), forControlEvents: .TouchUpInside)
-                    case Key.KeyType.Settings:
-                        keyView.addTarget(self, action: Selector("toggleSettings"), forControlEvents: .TouchUpInside)
-                    case Key.KeyType.Dismiss:
-                        keyView.addTarget(self, action: Selector("dismissKB:"), forControlEvents: .TouchUpInside)//+20141212
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.backspaceDown(_:)), for: .touchDown)
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.backspaceUp(_:)), for: cancelEvents)
+                    case Key.KeyType.shift:
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.shiftDown(_:)), for: .touchUpInside)
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.shiftDoubleTapped(_:)), for: .touchDownRepeat)
+                    case Key.KeyType.modeChange:
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.modeChangeTapped(_:)), for: .touchUpInside)
+                    case Key.KeyType.settings:
+                        keyView.addTarget(self, action: Selector("toggleSettings"), for: .touchUpInside)
+                    case Key.KeyType.dismiss:
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.dismissKB(_:)), for: .touchUpInside)//+20141212
                     default:
                         break
                     }
                     
                     if key.hasOutput {
-                        keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.keyPressedHelper(_:)), for: .touchUpInside)
                     }
                     
                     if key.isCharacter {
                         //+20150101
                         //+20151123  && !NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys
-                        if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+                        if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad {
 
-                            keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
-                            keyView.addTarget(keyView, action: Selector("hidePopup"), forControlEvents: .TouchDragExit)
-                            keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside])
+                            keyView.addTarget(self, action: #selector(KeyboardViewController.showPopup(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
+                            keyView.addTarget(keyView, action: Selector("hidePopup"), for: .touchDragExit)
+                            keyView.addTarget(self, action: #selector(KeyboardViewController.hidePopupDelay(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside])
                         }
                     }
                     
-                    if key.type != Key.KeyType.Shift && key.type != Key.KeyType.ModeChange {
-                        keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
-                        keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit])
+                    if key.type != Key.KeyType.shift && key.type != Key.KeyType.modeChange {
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.highlightKey(_:)), for: [.touchDown, .touchDragInside, .touchDragEnter])
+                        keyView.addTarget(self, action: #selector(KeyboardViewController.unHighlightKey(_:)), for: [.touchUpInside, .touchUpOutside, .touchDragOutside, .touchDragExit])
                     }
-                    keyView.addTarget(self, action: Selector("playKeySound"), forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: #selector(KeyboardViewController.playKeySound), for: .touchDown)
                 }
             }
         }
@@ -443,16 +441,16 @@ class KeyboardViewController: UIInputViewController {
     /////////////////
     
     var keyWithDelayedPopup: KeyboardKey?
-    var popupDelayTimer: NSTimer?
+    var popupDelayTimer: Timer?
     
-    func showPopup(sender: KeyboardKey) {
+    @objc func showPopup(_ sender: KeyboardKey) {
         if sender == self.keyWithDelayedPopup {
             self.popupDelayTimer?.invalidate()
         }
         sender.showPopup()
     }
     
-    func hidePopupDelay(sender: KeyboardKey) {
+    @objc func hidePopupDelay(_ sender: KeyboardKey) {
         self.popupDelayTimer?.invalidate()
         
         if sender != self.keyWithDelayedPopup {
@@ -461,11 +459,11 @@ class KeyboardViewController: UIInputViewController {
         }
         
         if sender.popup != nil {
-            self.popupDelayTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hidePopupCallback"), userInfo: nil, repeats: false)
+            self.popupDelayTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(KeyboardViewController.hidePopupCallback), userInfo: nil, repeats: false)
         }
     }
     
-    func hidePopupCallback() {
+    @objc func hidePopupCallback() {
         self.keyWithDelayedPopup?.hidePopup()
         self.keyWithDelayedPopup = nil
         self.popupDelayTimer = nil
@@ -481,7 +479,7 @@ class KeyboardViewController: UIInputViewController {
     }
 
     // TODO: this is currently not working as intended; only called when selection changed -- iOS bug
-    override func textDidChange(textInput: UITextInput?) {
+    override func textDidChange(_ textInput: UITextInput?) {
         //typedKeys = ""//+20141210
         let previousContext:String? = self.textDocumentProxy.documentContextBeforeInput
         if  typedKeys.characters.count > 0  {
@@ -490,9 +488,9 @@ class KeyboardViewController: UIInputViewController {
                 
                 let contextStr:String = previousContext!
                 
-                let f1:NSString = varamozhi.getConvertedText(typedKeys)
-                let range = contextStr.rangeOfString(f1 as String)
-                if range?.endIndex != contextStr.endIndex {
+                let f1:NSString = varamozhi.getConvertedText(typedKeys) as! NSString
+                let range = contextStr.range(of: f1 as String)
+                if range?.upperBound != contextStr.endIndex {
                     typedKeys = ""
                 }
             }else{
@@ -504,26 +502,26 @@ class KeyboardViewController: UIInputViewController {
         
         self.contextChanged()
     }
-    override func textWillChange(textInput: UITextInput?) {
+    override func textWillChange(_ textInput: UITextInput?) {
         
         
     }
     func contextChanged() {
         self.setCapsIfNeeded()
-        self.autoPeriodState = .NoSpace
+        self.autoPeriodState = .noSpace
     }
     
-    func setHeight(height: CGFloat) {
+    func setHeight(_ height: CGFloat) {
         if self.heightConstraint == nil {
             self.heightConstraint = NSLayoutConstraint(
                 item:self.view,
-                attribute:NSLayoutAttribute.Height,
-                relatedBy:NSLayoutRelation.Equal,
+                attribute:NSLayoutAttribute.height,
+                relatedBy:NSLayoutRelation.equal,
                 toItem:nil,
-                attribute:NSLayoutAttribute.NotAnAttribute,
+                attribute:NSLayoutAttribute.notAnAttribute,
                 multiplier:0,
                 constant:height)
-            self.heightConstraint!.priority = 1000
+            self.heightConstraint!.priority = UILayoutPriority(rawValue: 1000)
             
             self.view.addConstraint(self.heightConstraint!) // TODO: what if view already has constraint added?
         }
@@ -532,7 +530,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func updateAppearances(appearanceIsDark: Bool) {
+    func updateAppearances(_ appearanceIsDark: Bool) {
         self.layout?.solidColorMode = self.solidColorMode()
         self.layout?.darkMode = appearanceIsDark
         self.layout?.updateKeyAppearanceTemp()
@@ -541,15 +539,15 @@ class KeyboardViewController: UIInputViewController {
         //self.settingsView?.darkMode = appearanceIsDark
     }
     
-    func highlightKey(sender: KeyboardKey) {
-        sender.highlighted = true
+    @objc func highlightKey(_ sender: KeyboardKey) {
+        sender.isHighlighted = true
     }
     
-    func unHighlightKey(sender: KeyboardKey) {
-        sender.highlighted = false
+    @objc func unHighlightKey(_ sender: KeyboardKey) {
+        sender.isHighlighted = false
     }
     
-    func keyPressedHelper(sender: KeyboardKey) {
+    @objc func keyPressedHelper(_ sender: KeyboardKey) {
         //+20141229self.playKeySound()
         
         if let model = self.layout?.keyForView(sender) {
@@ -611,13 +609,13 @@ class KeyboardViewController: UIInputViewController {
             }
             */
             // auto exit from special char subkeyboard
-            if model.type == Key.KeyType.Space || model.type == Key.KeyType.Return {
+            if model.type == Key.KeyType.space || model.type == Key.KeyType.return {
                 self.setMode(0)
             }
             else if model.lowercaseOutput == "'" {
                 self.setMode(0)
             }
-            else if model.type == Key.KeyType.Character {
+            else if model.type == Key.KeyType.character {
                 self.setMode(0)
             }
             
@@ -628,21 +626,21 @@ class KeyboardViewController: UIInputViewController {
             // TODO: reset context
         }
         
-        if self.shiftState == ShiftState.Enabled {
-            self.shiftState = ShiftState.Disabled
+        if self.shiftState == ShiftState.enabled {
+            self.shiftState = ShiftState.disabled
         }
         
         self.setCapsIfNeeded()
     }
     
-    func handleAutoPeriod(key: Key) {
-        if !NSUserDefaults.standardUserDefaults().boolForKey(kPeriodShortcut) {
+    func handleAutoPeriod(_ key: Key) {
+        if !UserDefaults.standard.bool(forKey: kPeriodShortcut) {
             return
         }
         
-        if self.autoPeriodState == .FirstSpace {
-            if key.type != Key.KeyType.Space {
-                self.autoPeriodState = .NoSpace
+        if self.autoPeriodState == .firstSpace {
+            if key.type != Key.KeyType.space {
+                self.autoPeriodState = .noSpace
                 return
             }
             
@@ -653,18 +651,18 @@ class KeyboardViewController: UIInputViewController {
                 }
                 
                 var index = previousContext!.endIndex
-                
-                index = index.predecessor()
+                //+20171120
+                index = previousContext!.index(before: index)
                 if previousContext![index] != " " {
                     return false
                 }
                 
-                index = index.predecessor()
+                index = previousContext!.index(before: index)
                 if previousContext![index] != " " {
                     return false
                 }
                 
-                index = index.predecessor()
+                index = previousContext!.index(before: index)
                 let char = previousContext![index]
                 if self.characterIsWhitespace(char) || self.characterIsPunctuation(char) || char == "," {
                     return false
@@ -680,11 +678,11 @@ class KeyboardViewController: UIInputViewController {
                 self.textDocumentProxy.insertText(" ")
             }
             
-            self.autoPeriodState = .NoSpace
+            self.autoPeriodState = .noSpace
         }
         else {
-            if key.type == Key.KeyType.Space {
-                self.autoPeriodState = .FirstSpace
+            if key.type == Key.KeyType.space {
+                self.autoPeriodState = .firstSpace
             }
         }
     }
@@ -696,7 +694,7 @@ class KeyboardViewController: UIInputViewController {
         self.backspaceRepeatTimer = nil
     }
     
-    func backspaceDown(sender: KeyboardKey) {
+    @objc func backspaceDown(_ sender: KeyboardKey) {
         self.cancelBackspaceTimers()
         
         lastchar = "" //+20150129
@@ -749,7 +747,7 @@ class KeyboardViewController: UIInputViewController {
             var isEmptyy = false
             let documentProxy = self.textDocumentProxy as UITextDocumentProxy
             if let beforeContext = documentProxy.documentContextBeforeInput {
-                let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
+                let previousCharacter = beforeContext[beforeContext.characters.index(before: beforeContext.endIndex)]
                 isEmptyy = self.characterIsWhitespace(previousCharacter)
             }
             else {
@@ -762,17 +760,17 @@ class KeyboardViewController: UIInputViewController {
                 let proxy = self.textDocumentProxy as UIKeyInput
                 
                 
-                    let f1:NSString = varamozhi.getConvertedText(typedKeys)
+                    let f1:NSString = varamozhi.getConvertedText(typedKeys) as! NSString
                     var i:Int = f1.length;
                     while i > 1
                     {
                         proxy.deleteBackward()
-                        i--;
+                        i -= 1;
                         
                     }
-                    typedKeys = typedKeys.substringToIndex(typedKeys.endIndex.predecessor())
+                    typedKeys = typedKeys.substring(to: typedKeys.characters.index(before: typedKeys.endIndex))
 
-                    let f2:NSString = varamozhi.getConvertedText(typedKeys)
+                    let f2:NSString = varamozhi.getConvertedText(typedKeys) as! NSString
                     proxy.insertText(f2 as String)
                 
                 
@@ -784,19 +782,19 @@ class KeyboardViewController: UIInputViewController {
         typedKeys = "";
         
         // trigger for subsequent deletes
-        self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+        self.backspaceDelayTimer = Timer.scheduledTimer(timeInterval: backspaceDelay - backspaceRepeat, target: self, selector: #selector(KeyboardViewController.backspaceDelayCallback), userInfo: nil, repeats: false)
     }
     
-    func backspaceUp(sender: KeyboardKey) {
+    @objc func backspaceUp(_ sender: KeyboardKey) {
         self.cancelBackspaceTimers()
     }
     
-    func backspaceDelayCallback() {
+    @objc func backspaceDelayCallback() {
         self.backspaceDelayTimer = nil
-        self.backspaceRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceRepeat, target: self, selector: Selector("backspaceRepeatCallback"), userInfo: nil, repeats: true)
+        self.backspaceRepeatTimer = Timer.scheduledTimer(timeInterval: backspaceRepeat, target: self, selector: #selector(KeyboardViewController.backspaceRepeatCallback), userInfo: nil, repeats: true)
     }
     
-    func backspaceRepeatCallback() {
+    @objc func backspaceRepeatCallback() {
         
         self.playKeySound()
         let textDocumentProxy = self.textDocumentProxy as UIKeyInput
@@ -805,7 +803,7 @@ class KeyboardViewController: UIInputViewController {
         
     }
     
-    func shiftDown(sender: KeyboardKey) {
+    @objc func shiftDown(_ sender: KeyboardKey) {
         //+20141229self.playKeySound()
         
         lastchar = "sd" //+20150129
@@ -816,60 +814,60 @@ class KeyboardViewController: UIInputViewController {
         }
         
         switch self.shiftState {
-        case .Disabled:
-            self.shiftState = .Enabled
-        case .Enabled:
-            self.shiftState = .Disabled
-        case .Locked:
-            self.shiftState = .Disabled
+        case .disabled:
+            self.shiftState = .enabled
+        case .enabled:
+            self.shiftState = .disabled
+        case .locked:
+            self.shiftState = .disabled
         }
         
         (sender.shape as? ShiftShape)?.withLock = false
     }
     
-    func shiftDoubleTapped(sender: KeyboardKey) {
+    @objc func shiftDoubleTapped(_ sender: KeyboardKey) {
         
         if lastchar == "sd" {//+20150129
             
             self.shiftWasMultitapped = true
             
             switch self.shiftState {
-            case .Disabled:
-                self.shiftState = .Locked
-            case .Enabled:
-                self.shiftState = .Locked
-            case .Locked:
-                self.shiftState = .Disabled
+            case .disabled:
+                self.shiftState = .locked
+            case .enabled:
+                self.shiftState = .locked
+            case .locked:
+                self.shiftState = .disabled
             }
         }
         
     }
     
     // TODO: this should be uppercase, not lowercase
-    func updateKeyCaps(lowercase: Bool) {
+    func updateKeyCaps(_ lowercase: Bool) {
         if self.layout != nil {
            // let actualUppercase = true// (NSUserDefaults.standardUserDefaults().boolForKey(kSmallLowercase) ? !lowercase : true)
             
             for (model, key) in self.layout!.modelToView {
                 key.text = model.keyCapForCase(!lowercase)//+20151215
                 
-                if model.type == Key.KeyType.Shift {
+                if model.type == Key.KeyType.shift {
                     switch self.shiftState {
-                    case .Disabled:
-                        key.highlighted = false
-                    case .Enabled:
-                        key.highlighted = true
-                    case .Locked:
-                        key.highlighted = true
+                    case .disabled:
+                        key.isHighlighted = false
+                    case .enabled:
+                        key.isHighlighted = true
+                    case .locked:
+                        key.isHighlighted = true
                     }
                     
-                    (key.shape as? ShiftShape)?.withLock = (self.shiftState == .Locked)
+                    (key.shape as? ShiftShape)?.withLock = (self.shiftState == .locked)
                 }
             }
         }
     }
     
-    func modeChangeTapped(sender: KeyboardKey) {
+    @objc func modeChangeTapped(_ sender: KeyboardKey) {
         //+20141229self.playKeySound()
         
         if let toMode = self.layout?.viewToModel[sender]?.toMode {
@@ -877,25 +875,25 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     //+20141212
-    func dismissKB(sender: KeyboardKey){
+    @objc func dismissKB(_ sender: KeyboardKey){
         
         self.dismissKeyboard();
         
     }
-    func advanceTapped(sender: KeyboardKey) {
+    @objc func advanceTapped(_ sender: KeyboardKey) {
         self.forwardingView.resetTrackedViews()
         //self.shiftStartingState = nil
         self.shiftWasMultitapped = false
         
         self.advanceToNextInputMode()
     }
-    func setMode(mode: Int) {
-        for (pageIndex, page) in self.keyboard.pages.enumerate() {
-            for (_, row) in page.rows.enumerate() {
-                for (_, key) in row.enumerate() {
+    func setMode(_ mode: Int) {
+        for (pageIndex, page) in self.keyboard.pages.enumerated() {
+            for (_, row) in page.rows.enumerated() {
+                for (_, key) in row.enumerated() {
                     if self.layout?.modelToView[key] != nil {
                         let keyView = self.layout?.modelToView[key]
-                        keyView?.hidden = (pageIndex != mode)
+                        keyView?.isHidden = (pageIndex != mode)
                     }
                 }
             }
@@ -944,30 +942,30 @@ class KeyboardViewController: UIInputViewController {
     func setCapsIfNeeded() {
         if self.shouldAutoCapitalize() {
             switch self.shiftState {
-            case .Disabled:
-                self.shiftState = .Enabled
-            case .Enabled:
-                self.shiftState = .Enabled
-            case .Locked:
-                self.shiftState = .Locked
+            case .disabled:
+                self.shiftState = .enabled
+            case .enabled:
+                self.shiftState = .enabled
+            case .locked:
+                self.shiftState = .locked
             }
         }
     }
     
-    func characterIsPunctuation(character: Character) -> Bool {
+    func characterIsPunctuation(_ character: Character) -> Bool {
         return (character == ".") || (character == "!") || (character == "?")
     }
     
-    func characterIsNewline(character: Character) -> Bool {
+    func characterIsNewline(_ character: Character) -> Bool {
         return (character == "\n") || (character == "\r")
     }
     
-    func characterIsWhitespace(character: Character) -> Bool {
+    func characterIsWhitespace(_ character: Character) -> Bool {
         // there are others, but who cares
         return (character == " ") || (character == "\n") || (character == "\r") || (character == "\t")
     }
     
-    func stringIsWhitespace(string: String?) -> Bool {
+    func stringIsWhitespace(_ string: String?) -> Bool {
         if string != nil {
             for char in (string!).characters {
                 if !characterIsWhitespace(char) {
@@ -1046,12 +1044,12 @@ class KeyboardViewController: UIInputViewController {
     }
     
     // this only works if full access is enabled
-    func playKeySound() {
-        if !NSUserDefaults.standardUserDefaults().boolForKey(kKeyboardClicks) {
+    @objc func playKeySound() {
+        if !UserDefaults.standard.bool(forKey: kKeyboardClicks) {
             return
         }
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
             AudioServicesPlaySystemSound(1104)
         })
     }
@@ -1064,15 +1062,15 @@ class KeyboardViewController: UIInputViewController {
     class var layoutConstants: LayoutConstants.Type { get { return LayoutConstants.self }}
     class var globalColors: GlobalColors.Type { get { return GlobalColors.self }}
     
-    func keyPressed(key: Key) {
+    func keyPressed(_ key: Key) {
          let proxy = (self.textDocumentProxy as UIKeyInput)
             //+20141209
             let keyOutput = key.outputForCase(self.shiftState.uppercase())
             
-            let f1:NSString = varamozhi.getConvertedText(typedKeys)
+            let f1:NSString = varamozhi.getConvertedText(typedKeys) as! NSString
             //proxy.insertText(keyOutput)
             
-            if key.type == .Character || key.type == .SpecialCharacter{
+            if key.type == .character || key.type == .specialCharacter{
                 
                 typedKeys += keyOutput;
                 
@@ -1080,7 +1078,7 @@ class KeyboardViewController: UIInputViewController {
                 while i > 0
                 {
                     proxy.deleteBackward()
-                    i--;
+                    i -= 1;
                     
                 }
                 
@@ -1106,7 +1104,7 @@ class KeyboardViewController: UIInputViewController {
         // note that dark mode is not yet valid here, so we just put false for clarity
         //return ExtraView(globalColors: self.dynamicType.globalColors, darkMode: false, solidColorMode: self.solidColorMode())
         //+20150325
-        if NSUserDefaults.standardUserDefaults().boolForKey(kDisablePopupKeys) {
+        if UserDefaults.standard.bool(forKey: kDisablePopupKeys) {
             return nil
         } else{
             return nil//PredictiveBanner(keyboard: self)

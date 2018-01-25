@@ -62,7 +62,6 @@
 		0388DD5A1A49846D00E413A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0388DD581A49846D00E413A5 /* Main.storyboard */; };
 		0388DD5C1A49846D00E413A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0388DD5B1A49846D00E413A5 /* Images.xcassets */; };
 		0388DD5F1A49846D00E413A5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0388DD5D1A49846D00E413A5 /* LaunchScreen.xib */; };
-		0388DD6B1A49846D00E413A5 /* VaramozhiEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0388DD6A1A49846D00E413A5 /* VaramozhiEditorTests.swift */; };
 		0388DD761A49A0C300E413A5 /* lipi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0388DD751A49A0C300E413A5 /* lipi.png */; };
 		039CBCB61A78AFB600290593 /* contract.png in Resources */ = {isa = PBXBuildFile; fileRef = 039CBCB41A78AFB600290593 /* contract.png */; };
 		039CBCB71A78AFB600290593 /* expand.png in Resources */ = {isa = PBXBuildFile; fileRef = 039CBCB51A78AFB600290593 /* expand.png */; };
@@ -112,13 +111,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0355E0821A4D5EC60054198B;
 			remoteInfo = varamozhi;
-		};
-		0388DD651A49846D00E413A5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0388DD451A49846D00E413A5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0388DD4C1A49846D00E413A5;
-			remoteInfo = VaramozhiEditor;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -199,7 +191,6 @@
 		0388DD591A49846D00E413A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0388DD5B1A49846D00E413A5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0388DD5E1A49846D00E413A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		0388DD641A49846D00E413A5 /* VaramozhiEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaramozhiEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0388DD691A49846D00E413A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0388DD6A1A49846D00E413A5 /* VaramozhiEditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaramozhiEditorTests.swift; sourceTree = "<group>"; };
 		0388DD751A49A0C300E413A5 /* lipi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipi.png; sourceTree = "<group>"; };
@@ -260,13 +251,6 @@
 			files = (
 				03BA71E91A722857005B252D /* MessageUI.framework in Frameworks */,
 				03BA71E71A722850005B252D /* Social.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0388DD611A49846D00E413A5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +382,6 @@
 			isa = PBXGroup;
 			children = (
 				0388DD4D1A49846D00E413A5 /* VaramozhiEditor.app */,
-				0388DD641A49846D00E413A5 /* VaramozhiEditorTests.xctest */,
 				0355E0831A4D5EC60054198B /* varamozhi.appex */,
 			);
 			name = Products;
@@ -536,24 +519,6 @@
 			productReference = 0388DD4D1A49846D00E413A5 /* VaramozhiEditor.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0388DD631A49846D00E413A5 /* VaramozhiEditorTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0388DD711A49846D00E413A5 /* Build configuration list for PBXNativeTarget "VaramozhiEditorTests" */;
-			buildPhases = (
-				0388DD601A49846D00E413A5 /* Sources */,
-				0388DD611A49846D00E413A5 /* Frameworks */,
-				0388DD621A49846D00E413A5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0388DD661A49846D00E413A5 /* PBXTargetDependency */,
-			);
-			name = VaramozhiEditorTests;
-			productName = VaramozhiEditorTests;
-			productReference = 0388DD641A49846D00E413A5 /* VaramozhiEditorTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -562,21 +527,18 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = jeesmon;
 				TargetAttributes = {
 					0355E0821A4D5EC60054198B = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 58V2A74LJ7;
+						LastSwiftMigration = 0910;
 					};
 					0388DD4C1A49846D00E413A5 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 58V2A74LJ7;
-					};
-					0388DD631A49846D00E413A5 = {
-						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = F2PHBVP83C;
-						TestTargetID = 0388DD4C1A49846D00E413A5;
+						LastSwiftMigration = 0910;
 					};
 				};
 			};
@@ -594,7 +556,6 @@
 			projectRoot = "";
 			targets = (
 				0388DD4C1A49846D00E413A5 /* VaramozhiEditor */,
-				0388DD631A49846D00E413A5 /* VaramozhiEditorTests */,
 				0355E0821A4D5EC60054198B /* varamozhi */,
 			);
 		};
@@ -667,13 +628,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0388DD621A49846D00E413A5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -730,14 +684,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0388DD601A49846D00E413A5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0388DD6B1A49846D00E413A5 /* VaramozhiEditorTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -745,11 +691,6 @@
 			isa = PBXTargetDependency;
 			target = 0355E0821A4D5EC60054198B /* varamozhi */;
 			targetProxy = 0355E0891A4D5EC70054198B /* PBXContainerItemProxy */;
-		};
-		0388DD661A49846D00E413A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0388DD4C1A49846D00E413A5 /* VaramozhiEditor */;
-			targetProxy = 0388DD651A49846D00E413A5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -777,7 +718,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeesmon Jacob (28LDT98ZTB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jeesmon Jacob (58V2A74LJ7)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -787,10 +728,12 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.VaramozhiEditor.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "519a7fbc-22ad-4794-83f5-c4693d5c6685";
+				PROVISIONING_PROFILE = "98fc94ce-507e-478c-b7a0-0523cf72e85d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -804,9 +747,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.VaramozhiEditor.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "822f5d12-0e21-4d0a-b195-432196fed865";
+				PROVISIONING_PROFILE = "98fc94ce-507e-478c-b7a0-0523cf72e85d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -818,13 +763,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeesmon Jacob (28LDT98ZTB)";
@@ -833,6 +786,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -863,13 +817,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jeesmon Jacob (58V2A74LJ7)";
@@ -877,6 +839,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -887,6 +850,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "822f5d12-0e21-4d0a-b195-432196fed865";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -895,70 +859,40 @@
 		0388DD6F1A49846D00E413A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeesmon Jacob (28LDT98ZTB)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jeesmon Jacob (58V2A74LJ7)";
+				DEVELOPMENT_TEAM = 58V2A74LJ7;
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "519a7fbc-22ad-4794-83f5-c4693d5c6685";
+				PROVISIONING_PROFILE = "261cce0e-6e11-48ec-b026-94ad316bda4c";
+				PROVISIONING_PROFILE_SPECIFIER = Varamozhi_Distribution_20171123;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		0388DD701A49846D00E413A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jeesmon Jacob (58V2A74LJ7)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 58V2A74LJ7;
 				INFOPLIST_FILE = VaramozhiEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "822f5d12-0e21-4d0a-b195-432196fed865";
+				PROVISIONING_PROFILE = "261cce0e-6e11-48ec-b026-94ad316bda4c";
+				PROVISIONING_PROFILE_SPECIFIER = Varamozhi_Distribution_20171123;
 				SWIFT_OBJC_BRIDGING_HEADER = "varamozhi-Bridging-Header.h";
-			};
-			name = Release;
-		};
-		0388DD721A49846D00E413A5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
-			};
-			name = Debug;
-		};
-		0388DD731A49846D00E413A5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = VaramozhiEditorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jeesmon.apps.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c73664b4-8c22-430d-99c5-1358e8dea277";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaramozhiEditor.app/VaramozhiEditor";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -988,15 +922,6 @@
 			buildConfigurations = (
 				0388DD6F1A49846D00E413A5 /* Debug */,
 				0388DD701A49846D00E413A5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0388DD711A49846D00E413A5 /* Build configuration list for PBXNativeTarget "VaramozhiEditorTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0388DD721A49846D00E413A5 /* Debug */,
-				0388DD731A49846D00E413A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

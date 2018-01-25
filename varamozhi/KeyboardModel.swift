@@ -17,7 +17,7 @@ class Keyboard {
         self.pages = []
     }
     
-    func addKey(key: Key, row: Int, page: Int) {
+    func addKey(_ key: Key, row: Int, page: Int) {
         if self.pages.count <= page {
             for _ in self.pages.count...page {
                 self.pages.append(Page())
@@ -35,7 +35,7 @@ class Page {
         self.rows = []
     }
     
-    func addKey(key: Key, row: Int) {
+    func addKey(_ key: Key, row: Int) {
         if self.rows.count <= row {
             for _ in self.rows.count...row {
                 self.rows.append([])
@@ -48,18 +48,18 @@ class Page {
 
 class Key: Hashable {
     enum KeyType {
-        case Character
-        case SpecialCharacter
-        case Shift
-        case Backspace
-        case ModeChange
-        case KeyboardChange
-        case Period
-        case Space
-        case Return
-        case Settings
-        case Dismiss
-        case Other
+        case character
+        case specialCharacter
+        case shift
+        case backspace
+        case modeChange
+        case keyboardChange
+        case period
+        case space
+        case `return`
+        case settings
+        case dismiss
+        case other
     }
     
     var type: KeyType
@@ -73,9 +73,9 @@ class Key: Hashable {
         get {
             switch self.type {
             case
-            .Character,
-            .SpecialCharacter,
-            .Period:
+            .character,
+            .specialCharacter,
+            .period:
                 return true
             default:
                 return false
@@ -86,19 +86,19 @@ class Key: Hashable {
     var isSpecial: Bool {
         get {
             switch self.type {
-            case .Shift:
+            case .shift:
                 return true
-            case .Backspace:
+            case .backspace:
                 return true
-            case .ModeChange:
+            case .modeChange:
                 return true
-            case .KeyboardChange:
+            case .keyboardChange:
                 return true
-            case .Return:
+            case .return:
                 return true
-            case .Space:
+            case .space:
                 return true
-            case .Settings:
+            case .settings:
                 return true
             default:
                 return false
@@ -131,14 +131,14 @@ class Key: Hashable {
         self.toMode = key.toMode
     }
     
-    func setLetter(letter: String) {
-        self.lowercaseOutput = (letter as NSString).lowercaseString
-        self.uppercaseOutput = (letter as NSString).uppercaseString
+    func setLetter(_ letter: String) {
+        self.lowercaseOutput = (letter as NSString).lowercased
+        self.uppercaseOutput = (letter as NSString).uppercased
         self.lowercaseKeyCap = self.lowercaseOutput
         self.uppercaseKeyCap = self.uppercaseOutput
     }
     
-    func outputForCase(uppercase: Bool) -> String {
+    func outputForCase(_ uppercase: Bool) -> String {
         if uppercase {
             if self.uppercaseOutput != nil {
                 return self.uppercaseOutput!
@@ -163,7 +163,7 @@ class Key: Hashable {
         }
     }
     
-    func keyCapForCase(uppercase: Bool) -> String {
+    func keyCapForCase(_ uppercase: Bool) -> String {
         if uppercase {
             if self.uppercaseKeyCap != nil {
                 return self.uppercaseKeyCap!
