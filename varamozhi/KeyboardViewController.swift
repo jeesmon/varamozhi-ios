@@ -524,6 +524,9 @@ class KeyboardViewController: UIInputViewController {
             self.heightConstraint!.priority = UILayoutPriority(rawValue: 1000)
             
             self.view.addConstraint(self.heightConstraint!) // TODO: what if view already has constraint added?
+            //+20180208
+            self.forwardingView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            self.forwardingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         }
         else {
             self.heightConstraint?.constant = height
